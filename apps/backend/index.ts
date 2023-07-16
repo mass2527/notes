@@ -1,18 +1,145 @@
 import { PrismaClient } from '@prisma/client';
+import Fastify, { FastifyRequest } from 'fastify';
+import { StatusCodes, getReasonPhrase } from 'http-status-codes';
+import cors from '@fastify/cors';
 
 const prisma = new PrismaClient();
+const fastify = Fastify({
+  logger: false,
+});
+await fastify.register(cors, {
+  origin: 'http://localhost:5173',
+});
 
-async function main() {
-  // ... you will write your Prisma Client queries here
-  console.info('hello2');
+fastify.get(
+  '/notes',
+  async (
+    request: FastifyRequest<{ Querystring: { userId: string } }>,
+    reply,
+  ) => {
+    const { userId } = request.query;
+    const notes = await prisma.note.findMany({
+      where: {
+        userId: Number(userId),
+      },
+    });
+
+    if (notes.length === 0) {
+      return reply.code(StatusCodes.NO_CONTENT).send({
+        error: getReasonPhrase(StatusCodes.NO_CONTENT),
+      });
+    }
+
+    return notes;
+  },
+);
+
+fastify.get(
+  '/notes/:noteId',
+  async (
+    request: FastifyRequest<{
+      Params: { noteId: string };
+    }>,
+    reply,
+  ) => {
+    const { noteId } = request.params;
+
+    const note = await prisma.note.findUnique({
+      where: {
+        id: Number(noteId),
+      },
+    });
+
+    if (!note) {
+      return reply.code(StatusCodes.NOT_FOUND).send({
+        error: getReasonPhrase(StatusCodes.NOT_FOUND),
+      });
+    }
+
+    return note;
+  },
+);
+
+fastify.post(
+  '/notes',
+  async (
+    request: FastifyRequest<{
+      Body: {
+        title: string;
+        content: string;
+      };
+    }>,
+    reply,
+  ) => {
+    const { title, content } = request.body;
+    const note = await prisma.note.create({
+      data: {
+        title,
+        content,
+      },
+    });
+
+    return reply.code(201).send(note);
+  },
+);
+
+fastify.patch(
+  '/notes/:noteId',
+  async (
+    request: FastifyRequest<{
+      Params: { noteId: string };
+      Body: {
+        title: string;
+        content: string;
+      };
+    }>,
+    reply,
+  ) => {
+    const { noteId } = request.params;
+    const { title, content } = request.body;
+
+    const note = await prisma.note.update({
+      where: {
+        id: Number(noteId),
+      },
+      data: {
+        title,
+        content,
+      },
+    });
+
+    return note;
+  },
+);
+
+fastify.delete(
+  '/notes/:noteId',
+  async (
+    request: FastifyRequest<{
+      Params: { noteId: string };
+    }>,
+    reply,
+  ) => {
+    const { noteId } = request.params;
+    const note = await prisma.note.delete({
+      where: {
+        id: Number(noteId),
+      },
+    });
+
+    if (!note) {
+      return reply.code(StatusCodes.NOT_FOUND).send({
+        error: getReasonPhrase(StatusCodes.NOT_FOUND),
+      });
+    }
+
+    return reply.code(StatusCodes.NO_CONTENT).send();
+  },
+);
+
+try {
+  await fastify.listen({ port: 3000 });
+} catch (err) {
+  fastify.log.error(err);
+  process.exit(1);
 }
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
