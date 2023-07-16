@@ -1,15 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { noteQueryKeys } from '../../queries';
-
-type Note = {
-  id: number;
-  title: string;
-  content: string;
-  published: boolean;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-};
+import { Note } from '../../types';
 
 const fetchNotes = (userId: number): Promise<Note[]> => {
   return fetch(`http://localhost:3000/notes?userId=${userId}`).then((res) =>
