@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { noteQueryKeys } from '../../queries';
-import { Note } from '../../types';
+import { noteQueryKeys } from '../queries';
+import { Note } from '../types';
 
 const fetchNote = (noteId: number): Promise<Note> => {
   return fetch(`http://localhost:3000/notes/${noteId}`).then((res) =>

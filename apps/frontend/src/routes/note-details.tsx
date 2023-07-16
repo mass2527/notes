@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { useNoteQuery } from './queries';
 import invariant from 'tiny-invariant';
+import { useNoteQuery } from '../hooks/useNoteQuery';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
