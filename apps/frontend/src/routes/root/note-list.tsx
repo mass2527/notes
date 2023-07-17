@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useNotesQuery } from './queries';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 export default function NoteList() {
-  const notesQueryResult = useNotesQuery(1);
+  const currentUser = useCurrentUser();
+  const notesQueryResult = useNotesQuery(currentUser.id);
 
   return (
     <ul>

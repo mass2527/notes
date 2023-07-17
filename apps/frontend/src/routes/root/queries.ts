@@ -3,7 +3,7 @@ import { noteQueryKeys } from '../../queries';
 import { Note } from '../../types';
 import { http } from '../../http';
 
-const fetchNotes = (userId: number): Promise<Note[]> => {
+const fetchNotes = (userId?: number): Promise<Note[]> => {
   return http.get(`/notes?userId=${userId}`);
 };
 
