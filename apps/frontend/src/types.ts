@@ -7,3 +7,5 @@ export type Note = {
   updatedAt: string;
   userId: number;
 };
+
+export type EditableNote = Pick<Note, 'title' | 'content'>;

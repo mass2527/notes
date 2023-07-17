@@ -6,6 +6,7 @@ import Root from './routes/root/index.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NoteDetails from './routes/note-details.tsx';
 import NoteEdit from './routes/note-edit/index.tsx';
+import NoteNew from './routes/note-new/index.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'notes/:noteId/edit',
         element: <NoteEdit />,
+      },
+      {
+        path: 'notes/new',
+        element: <NoteNew />,
       },
     ],
   },

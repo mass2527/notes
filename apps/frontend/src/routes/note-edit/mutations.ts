@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Note } from '../../types';
+import { EditableNote, Note } from '../../types';
 import { http } from '../../http';
 import { noteQueryKeys } from '../../queries';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 const updateNote = (
   noteId: number,
-  { title, content }: Pick<Note, 'title' | 'content'>,
+  { title, content }: EditableNote,
 ): Promise<Note> => {
   return http.patch(`/notes/${noteId}`, {
     title,
@@ -16,7 +16,7 @@ const updateNote = (
 
 export const useUpdateNote = (noteId: number) => {
   return useMutation({
-    mutationFn: ({ title, content }: Pick<Note, 'title' | 'content'>) =>
+    mutationFn: ({ title, content }: EditableNote) =>
       updateNote(noteId, { title, content }),
   });
 };
