@@ -1,19 +1,22 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNote } from './hooks';
 import { ChangeEvent } from 'react';
+import { useUpdateNote } from './mutations';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const [note, setNote] = useNote(Number(noteId));
+  const updateNoteMutationResult = useUpdateNote(Number(noteId));
+  const navigate = useNavigate();
 
   if (typeof note === 'undefined') {
     return null;
   }
 
-  const updateNote = (
+  const changeNoteFields = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setNote({
@@ -28,19 +31,34 @@ function NoteEdit() {
         <input
           type="text"
           name="title"
-          value={note.title}
-          onChange={updateNote}
+          value={note?.title}
+          onChange={changeNoteFields}
         />
-        <textarea name="content" value={note.content} onChange={updateNote} />
+        <textarea
+          name="content"
+          value={note?.content}
+          onChange={changeNoteFields}
+        />
       </div>
       <div>
-        <button type="button">DONE</button>
+        <button
+          type="button"
+          onClick={() => {
+            updateNoteMutationResult.mutate(note, {
+              onSuccess: () => {
+                navigate(`/notes/${noteId}`);
+              },
+            });
+          }}
+        >
+          DONE
+        </button>
         <button type="button">DELETE</button>
       </div>
       <div>
         <span>PREVIEW</span>
-        <h2>{note.title}</h2>
-        <p>{note.content}</p>
+        <h2>{note?.title}</h2>
+        <p>{note?.content}</p>
       </div>
     </div>
   );
