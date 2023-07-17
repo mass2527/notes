@@ -7,18 +7,26 @@ function NoteDetails() {
   invariant(noteId);
   const noteQueryResult = useNoteQuery(Number(noteId));
 
-  return (
-    <div>
+  if (noteQueryResult.data) {
+    return (
       <div>
-        <time dateTime={noteQueryResult.data?.updatedAt}>
-          {noteQueryResult.data?.updatedAt}
-        </time>
-        <Link to={`/notes/${noteId}/edit`}>EDIT</Link>
+        <div>
+          <time dateTime={noteQueryResult.data.updatedAt}>
+            {noteQueryResult.data.updatedAt}
+          </time>
+          <Link to={`/notes/${noteId}/edit`}>EDIT</Link>
+        </div>
+        <h2>{noteQueryResult.data.title}</h2>
+        <p>{noteQueryResult.data.content}</p>
       </div>
-      <h2>{noteQueryResult.data?.title}</h2>
-      <p>{noteQueryResult.data?.content}</p>
-    </div>
-  );
+    );
+  }
+
+  if (noteQueryResult.isError) {
+    return <div>Note not found</div>;
+  }
+
+  return 'Loading...';
 }
 
 export default NoteDetails;

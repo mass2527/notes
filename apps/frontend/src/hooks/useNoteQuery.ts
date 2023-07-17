@@ -2,10 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { noteQueryKeys } from '../queries';
 import { Note } from '../types';
 
-const fetchNote = (noteId: number): Promise<Note> => {
-  return fetch(`http://localhost:3000/notes/${noteId}`).then((res) =>
-    res.json(),
-  );
+const fetchNote = async (noteId: number): Promise<Note> => {
+  const response = await fetch(`http://localhost:3000/notes/${noteId}`);
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error);
+  }
+
+  return data;
 };
 
 export const useNoteQuery = (noteId: number) => {
