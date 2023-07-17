@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 
 import { useNote } from './hooks';
 import { ChangeEvent } from 'react';
-import { useUpdateNote } from './mutations';
+import { useDeleteNote, useUpdateNote } from './mutations';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -11,6 +11,7 @@ function NoteEdit() {
   const [note, setNote] = useNote(Number(noteId));
   const updateNoteMutationResult = useUpdateNote(Number(noteId));
   const navigate = useNavigate();
+  const deleteNoteMutationResult = useDeleteNote(Number(noteId));
 
   if (typeof note === 'undefined') {
     return null;
@@ -53,7 +54,18 @@ function NoteEdit() {
         >
           DONE
         </button>
-        <button type="button">DELETE</button>
+        <button
+          type="button"
+          onClick={() => {
+            deleteNoteMutationResult.mutate(undefined, {
+              onSuccess: () => {
+                navigate('/', { replace: true });
+              },
+            });
+          }}
+        >
+          DELETE
+        </button>
       </div>
       <div>
         <span>PREVIEW</span>

@@ -23,3 +23,15 @@ export const useUpdateNote = (noteId: number) => {
       updateNote(noteId, { title, content }),
   });
 };
+
+const deleteNote = (noteId: number) => {
+  return fetch(`http://localhost:3000/notes/${noteId}`, {
+    method: 'DELETE',
+  });
+};
+
+export const useDeleteNote = (noteId: number) => {
+  return useMutation({
+    mutationFn: () => deleteNote(noteId),
+  });
+};
