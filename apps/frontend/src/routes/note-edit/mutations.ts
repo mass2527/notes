@@ -1,6 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Note } from '../../types';
 import { http } from '../../http';
+import { noteQueryKeys } from '../../queries';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 const updateNote = (
   noteId: number,
@@ -24,7 +26,15 @@ const deleteNote = (noteId: number) => {
 };
 
 export const useDeleteNote = (noteId: number) => {
+  const queryClient = useQueryClient();
+  const currentUser = useCurrentUser();
+
   return useMutation({
     mutationFn: () => deleteNote(noteId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: noteQueryKeys.list(currentUser.id),
+      });
+    },
   });
 };
