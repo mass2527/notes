@@ -1,20 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { Note } from '../../types';
+import { http } from '../../http';
 
 const updateNote = (
   noteId: number,
   { title, content }: Pick<Note, 'title' | 'content'>,
 ): Promise<Note> => {
-  return fetch(`http://localhost:3000/notes/${noteId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title,
-      content,
-    }),
-  }).then((res) => res.json());
+  return http.patch(`/notes/${noteId}`, {
+    title,
+    content,
+  });
 };
 
 export const useUpdateNote = (noteId: number) => {
@@ -25,9 +20,7 @@ export const useUpdateNote = (noteId: number) => {
 };
 
 const deleteNote = (noteId: number) => {
-  return fetch(`http://localhost:3000/notes/${noteId}`, {
-    method: 'DELETE',
-  });
+  return http.delete(`/notes/${noteId}`);
 };
 
 export const useDeleteNote = (noteId: number) => {
