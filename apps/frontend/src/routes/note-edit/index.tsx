@@ -5,6 +5,8 @@ import { useNote } from './hooks';
 import { ChangeEvent } from 'react';
 import { useDeleteNote, useUpdateNote } from './mutations';
 import { Button } from '../../components/button';
+import Input from '../../components/input';
+import Textarea from '../../components/textarea';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -30,13 +32,13 @@ function NoteEdit() {
   return (
     <div>
       <div>
-        <input
+        <Input
           type="text"
           name="title"
           value={note?.title}
           onChange={changeNoteFields}
         />
-        <textarea
+        <Textarea
           name="content"
           value={note?.content}
           onChange={changeNoteFields}
