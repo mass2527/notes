@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useNoteQuery } from '../hooks/useNoteQuery';
+import { getFormattedDate } from '../utils';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
@@ -12,7 +13,7 @@ function NoteDetails() {
       <div>
         <div>
           <time dateTime={noteQueryResult.data.updatedAt}>
-            {noteQueryResult.data.updatedAt}
+            {getFormattedDate(new Date(noteQueryResult.data.updatedAt))}
           </time>
           <Link to={`/notes/${noteId}/edit`}>EDIT</Link>
         </div>
