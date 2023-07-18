@@ -1,8 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { EditableNote, Note } from '../../types';
 import { http } from '../../http';
-import { noteQueryKeys } from '../../queries';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { useInvalidateCurrentUserNoteListQuery } from '../../hooks/useInvalidateCurrentUserNoteListQuery';
 
 const updateNote = (
   noteId: number,
@@ -15,16 +14,14 @@ const updateNote = (
 };
 
 export const useUpdateNote = (noteId: number) => {
-  const queryClient = useQueryClient();
-  const currentUser = useCurrentUser();
+  const invalidateCurrentUserNoteListQuery =
+    useInvalidateCurrentUserNoteListQuery();
 
   return useMutation({
     mutationFn: ({ title, content }: EditableNote) =>
       updateNote(noteId, { title, content }),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: noteQueryKeys.list(currentUser.id),
-      });
+      invalidateCurrentUserNoteListQuery();
     },
   });
 };
@@ -34,15 +31,13 @@ const deleteNote = (noteId: number) => {
 };
 
 export const useDeleteNote = (noteId: number) => {
-  const queryClient = useQueryClient();
-  const currentUser = useCurrentUser();
+  const invalidateCurrentUserNoteListQuery =
+    useInvalidateCurrentUserNoteListQuery();
 
   return useMutation({
     mutationFn: () => deleteNote(noteId),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: noteQueryKeys.list(currentUser.id),
-      });
+      invalidateCurrentUserNoteListQuery();
     },
   });
 };
