@@ -15,9 +15,17 @@ const updateNote = (
 };
 
 export const useUpdateNote = (noteId: number) => {
+  const queryClient = useQueryClient();
+  const currentUser = useCurrentUser();
+
   return useMutation({
     mutationFn: ({ title, content }: EditableNote) =>
       updateNote(noteId, { title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: noteQueryKeys.list(currentUser.id),
+      });
+    },
   });
 };
 

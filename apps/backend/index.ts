@@ -68,12 +68,17 @@ fastify.post(
         title: string;
         content: string;
       };
+      Querystring: {
+        userId: string;
+      };
     }>,
     reply,
   ) => {
     const { title, content } = request.body;
+    const { userId } = request.query;
     const note = await prisma.note.create({
       data: {
+        userId: Number(userId),
         title,
         content,
       },
