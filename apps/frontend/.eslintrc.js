@@ -6,4 +6,11 @@ module.exports = {
     '@tanstack/query/exhaustive-deps': 'error',
     '@tanstack/query/prefer-query-object-syntax': 'error',
   },
+  overrides: [
+    {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+  ],
 };
