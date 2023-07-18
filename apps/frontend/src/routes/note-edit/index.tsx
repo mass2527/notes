@@ -4,6 +4,7 @@ import invariant from 'tiny-invariant';
 import { useNote } from './hooks';
 import { ChangeEvent } from 'react';
 import { useDeleteNote, useUpdateNote } from './mutations';
+import { Button } from '../../components/button';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -42,8 +43,8 @@ function NoteEdit() {
         />
       </div>
       <div>
-        <button
-          type="button"
+        <Button
+          variant="primary"
           onClick={() => {
             updateNoteMutationResult.mutate(note, {
               onSuccess: () => {
@@ -53,9 +54,9 @@ function NoteEdit() {
           }}
         >
           DONE
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          color="red"
           onClick={() => {
             deleteNoteMutationResult.mutate(undefined, {
               onSuccess: () => {
@@ -65,7 +66,7 @@ function NoteEdit() {
           }}
         >
           DELETE
-        </button>
+        </Button>
       </div>
       <div>
         <span>PREVIEW</span>

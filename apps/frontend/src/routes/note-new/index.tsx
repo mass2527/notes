@@ -5,6 +5,7 @@ import NoteEditor from '../../components/note-editor';
 import { useCreateNote } from './mutations';
 import { isEmpty } from '../../utils';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/button';
 
 function NoteNew() {
   const [note, setNote] = useState<EditableNote>({
@@ -20,8 +21,7 @@ function NoteNew() {
       <NotePreview
         header={
           <div>
-            <button
-              type="button"
+            <Button
               onClick={() => {
                 createNoteMutationResult.mutate(note, {
                   onSuccess: (note) => {
@@ -32,7 +32,7 @@ function NoteNew() {
               disabled={isEmpty(note)}
             >
               DONE
-            </button>
+            </Button>
           </div>
         }
         note={note}
