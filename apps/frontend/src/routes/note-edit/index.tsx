@@ -8,6 +8,7 @@ import NotePreview from '../../components/note-preview';
 import Spacing from '../../components/spacing';
 import NoteEditor from '../../components/note-editor';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
+import { isWithPlatformMetaKey } from '../../utils/platform';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -18,6 +19,14 @@ function NoteEdit() {
   const deleteNoteMutationResult = useDeleteNote(Number(noteId));
 
   if (status === 'success') {
+    const handleNoteEdit = () => {
+      updateNoteMutationResult.mutate(note, {
+        onSuccess: () => {
+          navigateWithQuery(`/notes/${noteId}`);
+        },
+      });
+    };
+
     return (
       <div className="flex gap-4 h-full">
         <NotePreview
@@ -32,11 +41,7 @@ function NoteEdit() {
               <Button
                 variant="primary"
                 onClick={() => {
-                  updateNoteMutationResult.mutate(note, {
-                    onSuccess: () => {
-                      navigateWithQuery(`/notes/${noteId}`);
-                    },
-                  });
+                  handleNoteEdit();
                 }}
                 disabled={
                   note.title === '' ||
@@ -63,6 +68,11 @@ function NoteEdit() {
           }
           note={note}
           setNote={setNote}
+          onKeyDown={(event) => {
+            if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
+              handleNoteEdit();
+            }
+          }}
         />
       </div>
     );

@@ -6,6 +6,7 @@ import { useCreateNote } from './mutations';
 import { Button } from '../../components/button';
 import Spacing from '../../components/spacing';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
+import { isWithPlatformMetaKey } from '../../utils/platform';
 
 function NoteNew() {
   const [note, setNote] = useState<NoteForm>({
@@ -14,6 +15,14 @@ function NoteNew() {
   });
   const createNoteMutationResult = useCreateNote();
   const navigateWithQuery = useNavigateWithQuery();
+
+  const handleNoteCreate = () => {
+    createNoteMutationResult.mutate(note, {
+      onSuccess: (note) => {
+        navigateWithQuery(`/notes/${note.id}`);
+      },
+    });
+  };
 
   return (
     <div className="flex gap-4 h-full">
@@ -28,11 +37,7 @@ function NoteNew() {
           <div className="flex justify-end">
             <Button
               onClick={() => {
-                createNoteMutationResult.mutate(note, {
-                  onSuccess: (note) => {
-                    navigateWithQuery(`/notes/${note.id}`);
-                  },
-                });
+                handleNoteCreate();
               }}
               disabled={
                 note.title === '' ||
@@ -46,6 +51,11 @@ function NoteNew() {
         }
         note={note}
         setNote={setNote}
+        onKeyDown={(event) => {
+          if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
+            handleNoteCreate();
+          }
+        }}
       />
     </div>
   );

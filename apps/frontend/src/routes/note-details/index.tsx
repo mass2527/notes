@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
-import { useNoteQuery } from '../hooks/use-note-query';
-import NotePreview from '../components/note-preview';
-import { getFormattedFullDate } from '../utils/time';
-import LinkWithQuery from '../components/link-with-query';
+import { useNoteQuery } from '../../hooks/use-note-query';
+import NotePreview from '../../components/note-preview';
+import { getFormattedFullDate } from '../../utils/time';
+import EditNoteLink from './edit-note-link';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
@@ -21,7 +21,7 @@ function NoteDetails() {
             >
               {getFormattedFullDate(new Date(noteQueryResult.data.updatedAt))}
             </time>
-            <LinkWithQuery to={`/notes/${noteId}/edit`}>EDIT</LinkWithQuery>
+            <EditNoteLink noteId={Number(noteId)} />
           </div>
         }
         note={noteQueryResult.data}

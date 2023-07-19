@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, KeyboardEventHandler, ReactNode } from 'react';
 import { NoteForm, Note } from '../types';
 import Input from './input';
 import Textarea from './textarea';
@@ -9,11 +9,13 @@ function NoteEditor({
   header,
   note,
   setNote,
+  onKeyDown,
 }: {
   className?: string;
   header?: ReactNode;
   note: NoteForm;
   setNote: React.Dispatch<React.SetStateAction<NoteForm>>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }) {
   const changeNoteFields = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -34,6 +36,8 @@ function NoteEditor({
           value={note.title}
           onChange={changeNoteFields}
           placeholder="Note's title..."
+          autoFocus
+          onKeyDown={onKeyDown}
         />
         <Textarea
           name="content"
@@ -41,6 +45,7 @@ function NoteEditor({
           onChange={changeNoteFields}
           className="h-full"
           placeholder="Note's content..."
+          onKeyDown={onKeyDown}
         />
       </div>
     </div>
