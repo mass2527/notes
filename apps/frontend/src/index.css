@@ -5,10 +5,16 @@
 @layer base {
   body {
     @apply bg-black text-white;
+    -webkit-font-smoothing: antialiased;
   }
 
   p {
     word-break: break-all;
     white-space: pre-wrap;
+    margin-bottom: 1.5em;
+  }
+
+  strong {
+    @apply font-semibold;
   }
 }
