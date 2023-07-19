@@ -24,12 +24,6 @@ fastify.get(
       },
     });
 
-    if (notes.length === 0) {
-      return reply.code(StatusCodes.NO_CONTENT).send({
-        error: getReasonPhrase(StatusCodes.NO_CONTENT),
-      });
-    }
-
     return notes;
   },
 );

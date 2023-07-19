@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { EditableNote } from '../../types';
+import { NoteForm } from '../../types';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { useCreateNote } from './mutations';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/button';
 
 function NoteNew() {
-  const [note, setNote] = useState<EditableNote>({
+  const [note, setNote] = useState<NoteForm>({
     title: '',
     content: '',
   });
@@ -16,11 +16,12 @@ function NoteNew() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <NoteEditor note={note} setNote={setNote} />
-      <NotePreview
+    <div className="flex gap-4 h-full">
+      <NotePreview className="flex-1" note={note} />
+      <NoteEditor
+        className="flex-1"
         header={
-          <div>
+          <div className="flex justify-end">
             <Button
               onClick={() => {
                 createNoteMutationResult.mutate(note, {
@@ -36,6 +37,7 @@ function NoteNew() {
           </div>
         }
         note={note}
+        setNote={setNote}
       />
     </div>
   );

@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useNoteQuery } from '../hooks/useNoteQuery';
-import { getFormattedDate } from '../utils';
 import Link from '../components/link';
+import NotePreview from '../components/note-preview';
+import { getFormattedFullDate } from '../utils';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
@@ -11,16 +12,20 @@ function NoteDetails() {
 
   if (noteQueryResult.data) {
     return (
-      <div>
-        <div>
-          <time dateTime={noteQueryResult.data.updatedAt}>
-            {getFormattedDate(new Date(noteQueryResult.data.updatedAt))}
-          </time>
-          <Link to={`/notes/${noteId}/edit`}>EDIT</Link>
-        </div>
-        <h2>{noteQueryResult.data.title}</h2>
-        <p>{noteQueryResult.data.content}</p>
-      </div>
+      <NotePreview
+        header={
+          <div className="flex justify-between items-center">
+            <time
+              dateTime={noteQueryResult.data.updatedAt}
+              className="text-neutral-500 text-sm"
+            >
+              {getFormattedFullDate(new Date(noteQueryResult.data.updatedAt))}
+            </time>
+            <Link to={`/notes/${noteId}/edit`}>EDIT</Link>
+          </div>
+        }
+        note={noteQueryResult.data}
+      />
     );
   }
 

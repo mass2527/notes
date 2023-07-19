@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { EditableNote, Note } from '../../types';
+import { NoteForm, Note } from '../../types';
 import { http } from '../../http';
 import { useInvalidateCurrentUserNoteListQuery } from '../../hooks/useInvalidateCurrentUserNoteListQuery';
 
 const updateNote = (
   noteId: number,
-  { title, content }: EditableNote,
+  { title, content }: NoteForm,
 ): Promise<Note> => {
   return http.patch(`/notes/${noteId}`, {
     title,
@@ -18,7 +18,7 @@ export const useUpdateNote = (noteId: number) => {
     useInvalidateCurrentUserNoteListQuery();
 
   return useMutation({
-    mutationFn: ({ title, content }: EditableNote) =>
+    mutationFn: ({ title, content }: NoteForm) =>
       updateNote(noteId, { title, content }),
     onSuccess: () => {
       invalidateCurrentUserNoteListQuery();

@@ -25,3 +25,7 @@ const formatDateTime = (date: Date, locale: string = 'ko-KR') => {
 export const getFormattedDate = (date: Date) => {
   return isToday(date) ? formatDateAsHHMM(date) : formatDateTime(date);
 };
+
+export const getFormattedFullDate = (date: Date) => {
+  return `${formatDateTime(date)} ${formatDateAsHHMM(date)}`;
+};

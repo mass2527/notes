@@ -2,13 +2,13 @@ import { ButtonHTMLAttributes } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
-  color?: 'orange' | 'red';
+  color?: 'white' | 'red';
 }
 
 export function Button({
   type = 'button',
   variant = 'secondary',
-  color = 'orange',
+  color = 'white',
   children,
   ...props
 }: Props) {
@@ -17,15 +17,15 @@ export function Button({
   return (
     <Component
       type={type}
-      className={`p-1 rounded ${
+      className={`py-1 px-4 rounded-full ${
         {
           primary: {
-            orange: 'bg-orange-500 text-white',
-            red: 'bg-red-500 text-white',
+            white: 'bg-white text-black',
+            red: 'bg-red-500 text-red-500',
           },
           secondary: {
-            orange: 'border border-orange-500 text-orange-500',
-            red: 'border border-red-500 text-red-500',
+            white: 'text-white border border-white',
+            red: 'text-red-500 border border-red-500',
           },
         }[variant][color]
       }`}

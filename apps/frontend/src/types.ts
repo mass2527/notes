@@ -8,4 +8,4 @@ export type Note = {
   userId: number;
 };
 
-export type EditableNote = Pick<Note, 'title' | 'content'>;
+export type NoteForm = Pick<Note, 'title' | 'content'>;
