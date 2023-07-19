@@ -34,7 +34,11 @@ function NoteNew() {
                   },
                 });
               }}
-              disabled={note.title === '' || note.content === ''}
+              disabled={
+                note.title === '' ||
+                note.content === '' ||
+                createNoteMutationResult.isLoading
+              }
             >
               DONE
             </Button>
