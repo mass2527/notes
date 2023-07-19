@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useNoteQuery } from '../hooks/use-note-query';
 import NotePreview from '../components/note-preview';
-import { getFormattedFullDate } from '../utils';
+import { getFormattedFullDate } from '../utils/time';
 import LinkWithQuery from '../components/link-with-query';
 
 function NoteDetails() {

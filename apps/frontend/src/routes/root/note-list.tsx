@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { useNotesQuery } from './queries';
 import { useCurrentUser } from '../../hooks/use-current-user';
-import { getFormattedDate } from '../../utils';
+import { getFormattedDate } from '../../utils/time';
 import Fuse from 'fuse.js';
 import LinkWithQuery from '../../components/link-with-query';
 

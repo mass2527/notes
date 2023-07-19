@@ -1,7 +1,3 @@
-export const isEmpty = <T extends Record<string, unknown>>(obj: T) => {
-  return Object.values(obj).every((value) => value === '');
-};
-
 const isToday = (date: Date) => {
   const today = new Date();
 
