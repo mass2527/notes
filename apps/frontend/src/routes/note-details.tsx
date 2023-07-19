@@ -30,10 +30,10 @@ function NoteDetails() {
   }
 
   if (noteQueryResult.isError) {
-    return <div>Note not found</div>;
+    return <div>Error...</div>;
   }
 
-  return 'Loading...';
+  return <div>Loading...</div>;
 }
 
 export default NoteDetails;

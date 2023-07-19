@@ -16,58 +16,62 @@ function NoteEdit() {
   const navigate = useNavigate();
   const deleteNoteMutationResult = useDeleteNote(Number(noteId));
 
-  if (status !== 'success') {
-    return null;
+  if (status === 'success') {
+    return (
+      <div className="flex gap-4 h-full">
+        <NotePreview
+          className="flex-1"
+          header={<Spacing size={32} />}
+          note={note}
+        />
+        <NoteEditor
+          className="flex-1"
+          header={
+            <div className="flex justify-end gap-4">
+              <Button
+                variant="primary"
+                onClick={() => {
+                  updateNoteMutationResult.mutate(note, {
+                    onSuccess: () => {
+                      navigate(`/notes/${noteId}`);
+                    },
+                  });
+                }}
+                disabled={
+                  note.title === '' ||
+                  note.content === '' ||
+                  updateNoteMutationResult.isLoading
+                }
+              >
+                DONE
+              </Button>
+              <Button
+                color="red"
+                onClick={() => {
+                  deleteNoteMutationResult.mutate(undefined, {
+                    onSuccess: () => {
+                      navigate('/', { replace: true });
+                    },
+                  });
+                }}
+                disabled={deleteNoteMutationResult.isLoading}
+              >
+                DELETE
+              </Button>
+            </div>
+          }
+          note={note}
+          setNote={setNote}
+        />
+      </div>
+    );
   }
 
-  return (
-    <div className="flex gap-4 h-full">
-      <NotePreview
-        className="flex-1"
-        header={<Spacing size={32} />}
-        note={note}
-      />
-      <NoteEditor
-        className="flex-1"
-        header={
-          <div className="flex justify-end gap-4">
-            <Button
-              variant="primary"
-              onClick={() => {
-                updateNoteMutationResult.mutate(note, {
-                  onSuccess: () => {
-                    navigate(`/notes/${noteId}`);
-                  },
-                });
-              }}
-              disabled={
-                note.title === '' ||
-                note.content === '' ||
-                updateNoteMutationResult.isLoading
-              }
-            >
-              DONE
-            </Button>
-            <Button
-              color="red"
-              onClick={() => {
-                deleteNoteMutationResult.mutate(undefined, {
-                  onSuccess: () => {
-                    navigate('/', { replace: true });
-                  },
-                });
-              }}
-              disabled={deleteNoteMutationResult.isLoading}
-            >
-              DELETE
-            </Button>
-          </div>
-        }
-        note={note}
-        setNote={setNote}
-      />
-    </div>
-  );
+  if (status === 'error') {
+    return <div>Error...</div>;
+  }
+
+  return <div>Loading...</div>;
 }
 
 export default NoteEdit;
