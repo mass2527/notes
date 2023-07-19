@@ -24,7 +24,7 @@ function NoteEdit() {
     <div className="flex gap-4 h-full">
       <NotePreview
         className="flex-1"
-        header={<Spacing size={34} />}
+        header={<Spacing size={32} />}
         note={note}
       />
       <NoteEditor
