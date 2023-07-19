@@ -33,12 +33,14 @@ function NoteEditor({
           name="title"
           value={note.title}
           onChange={changeNoteFields}
+          placeholder="Note's title..."
         />
         <Textarea
           name="content"
           value={note.content}
           onChange={changeNoteFields}
           className="h-full"
+          placeholder="Note's content..."
         />
       </div>
     </div>
