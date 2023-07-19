@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { NoteForm, Note } from '../../types';
 import { http } from '../../http';
-import { useInvalidateCurrentUserNoteListQuery } from '../../hooks/useInvalidateCurrentUserNoteListQuery';
+import { useInvalidateCurrentUserNoteListQuery } from '../../hooks/use-invalidate-current-user-note-list-query';
 
 const updateNote = (
   noteId: number,

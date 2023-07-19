@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { NoteForm, Note } from '../../types';
 import { http } from '../../http';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
-import { useInvalidateNoteListQuery } from '../../hooks/useInvalidateNoteListQuery';
+import { useCurrentUser } from '../../hooks/use-current-user';
+import { useInvalidateNoteListQuery } from '../../hooks/use-invalidate-note-list-query';
 
 const createNote = ({
   title,

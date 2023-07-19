@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNoteQuery } from '../../hooks/useNoteQuery';
+import { useNoteQuery } from '../../hooks/use-note-query';
 import { NoteForm } from '../../types';
 
 export const useNote = (noteId: number) => {

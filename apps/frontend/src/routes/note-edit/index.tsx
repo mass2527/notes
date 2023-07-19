@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNote } from './hooks';
@@ -7,13 +7,14 @@ import { Button } from '../../components/button';
 import NotePreview from '../../components/note-preview';
 import Spacing from '../../components/spacing';
 import NoteEditor from '../../components/note-editor';
+import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const { status, note, setNote } = useNote(Number(noteId));
   const updateNoteMutationResult = useUpdateNote(Number(noteId));
-  const navigate = useNavigate();
+  const navigateWithQuery = useNavigateWithQuery();
   const deleteNoteMutationResult = useDeleteNote(Number(noteId));
 
   if (status === 'success') {
@@ -33,7 +34,7 @@ function NoteEdit() {
                 onClick={() => {
                   updateNoteMutationResult.mutate(note, {
                     onSuccess: () => {
-                      navigate(`/notes/${noteId}`);
+                      navigateWithQuery(`/notes/${noteId}`);
                     },
                   });
                 }}
@@ -50,7 +51,7 @@ function NoteEdit() {
                 onClick={() => {
                   deleteNoteMutationResult.mutate(undefined, {
                     onSuccess: () => {
-                      navigate('/', { replace: true });
+                      navigateWithQuery('/', { replace: true });
                     },
                   });
                 }}

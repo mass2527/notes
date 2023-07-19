@@ -1,19 +1,34 @@
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useNotesQuery } from './queries';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { useCurrentUser } from '../../hooks/use-current-user';
 import { getFormattedDate } from '../../utils';
+import Fuse from 'fuse.js';
+import LinkWithQuery from '../../components/link-with-query';
+
+const fuseOptions = {
+  keys: ['title', 'content'],
+};
 
 export default function NoteList() {
   const currentUser = useCurrentUser();
   const notesQueryResult = useNotesQuery(currentUser.id);
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get('q') ?? '';
 
   if (notesQueryResult.data) {
+    const fuse = new Fuse(notesQueryResult.data, fuseOptions);
+    const filteredNotes =
+      query === ''
+        ? notesQueryResult.data
+        : fuse.search(query).map(({ item }) => item);
+
     return (
       <ul className="flex flex-col gap-4">
-        {notesQueryResult.data.length > 0 ? (
-          notesQueryResult.data.map((note) => (
+        {filteredNotes.length > 0 ? (
+          filteredNotes.map((note) => (
             <li key={note.id}>
-              <Link
+              <LinkWithQuery
                 to={`/notes/${note.id}`}
                 className="flex flex-col p-4 border border-neutral-700 rounded-lg"
               >
@@ -24,7 +39,7 @@ export default function NoteList() {
                 >
                   {getFormattedDate(new Date(note.updatedAt))}
                 </time>
-              </Link>
+              </LinkWithQuery>
             </li>
           ))
         ) : (

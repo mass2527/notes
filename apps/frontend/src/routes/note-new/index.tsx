@@ -3,9 +3,9 @@ import { NoteForm } from '../../types';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { useCreateNote } from './mutations';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/button';
 import Spacing from '../../components/spacing';
+import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 
 function NoteNew() {
   const [note, setNote] = useState<NoteForm>({
@@ -13,7 +13,7 @@ function NoteNew() {
     content: '',
   });
   const createNoteMutationResult = useCreateNote();
-  const navigate = useNavigate();
+  const navigateWithQuery = useNavigateWithQuery();
 
   return (
     <div className="flex gap-4 h-full">
@@ -30,7 +30,7 @@ function NoteNew() {
               onClick={() => {
                 createNoteMutationResult.mutate(note, {
                   onSuccess: (note) => {
-                    navigate(`/notes/${note.id}`);
+                    navigateWithQuery(`/notes/${note.id}`);
                   },
                 });
               }}

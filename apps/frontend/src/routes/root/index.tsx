@@ -1,8 +1,8 @@
 import { Outlet, Link as NativeLink } from 'react-router-dom';
 import NoteList from './note-list';
-import Link from '../../components/link';
-import Input from '../../components/input';
 import Spacing from '../../components/spacing';
+import QueryInput from './query-input';
+import LinkWithQuery from '../../components/link-with-query';
 
 function Root() {
   return (
@@ -13,8 +13,8 @@ function Root() {
         </h1>
         <Spacing size={16} />
         <div className="flex justify-between items-center">
-          <Input type="text" placeholder="Search notes" />
-          <Link to="/notes/new">NEW</Link>
+          <QueryInput />
+          <LinkWithQuery to="/notes/new">NEW</LinkWithQuery>
         </div>
         <Spacing size={16} />
 
