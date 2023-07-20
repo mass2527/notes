@@ -1,24 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Input from '../../components/input';
-import { useSearchParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { isWithPlatformMetaKey } from '../../utils/platform';
+import { useSyncSearchParams } from '../../hooks/use-sync-search-params';
 
 function QueryInput() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [notesFilteringQuery, setNotesFilteringQuery] = useState('');
-  const setSearchParams = useSearchParams()[1];
+  const [query, setQuery] = useState({
+    q: '',
+  });
 
-  useEffect(() => {
-    if (notesFilteringQuery === '') {
-      setSearchParams();
-    } else {
-      setSearchParams({
-        q: notesFilteringQuery,
-      });
-    }
-  }, [notesFilteringQuery]);
+  useSyncSearchParams(query);
 
   useDocumentKeydownEventListener((event) => {
     const inputElement = inputRef.current;
@@ -38,8 +31,8 @@ function QueryInput() {
       ref={inputRef}
       type="text"
       placeholder="Search notes"
-      value={notesFilteringQuery}
-      onChange={(event) => setNotesFilteringQuery(event.target.value)}
+      value={query.q}
+      onChange={(event) => setQuery({ q: event.target.value })}
     />
   );
 }
