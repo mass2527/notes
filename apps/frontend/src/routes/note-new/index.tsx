@@ -54,6 +54,7 @@ function NoteNew() {
             handleNoteCreate();
           }
         }}
+        disabled={createNoteMutationResult.isLoading}
       />
     </div>
   );

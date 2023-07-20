@@ -70,6 +70,10 @@ function NoteEdit() {
               handleNoteEdit();
             }
           }}
+          disabled={
+            updateNoteMutationResult.isLoading ||
+            deleteNoteMutationResult.isLoading
+          }
         />
       </div>
     );

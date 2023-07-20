@@ -1,5 +1,5 @@
 import { ChangeEvent, KeyboardEventHandler, ReactNode } from 'react';
-import { NoteForm, Note } from '../types';
+import { NoteForm } from '../types';
 import Input from './input';
 import Textarea from './textarea';
 import { twMerge } from 'tailwind-merge';
@@ -10,12 +10,14 @@ function NoteEditor({
   note,
   setNote,
   onKeyDown,
+  disabled = false,
 }: {
   className?: string;
   header?: ReactNode;
   note: NoteForm;
   setNote: React.Dispatch<React.SetStateAction<NoteForm>>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  disabled?: boolean;
 }) {
   const changeNoteFields = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,6 +41,7 @@ function NoteEditor({
           autoFocus
           onKeyDown={onKeyDown}
           maxLength={100}
+          disabled={disabled}
         />
         <Textarea
           name="content"
@@ -48,6 +51,7 @@ function NoteEditor({
           placeholder="Note's content..."
           onKeyDown={onKeyDown}
           maxLength={3000}
+          disabled={disabled}
         />
       </div>
     </div>
