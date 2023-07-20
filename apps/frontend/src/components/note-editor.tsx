@@ -38,6 +38,7 @@ function NoteEditor({
           placeholder="Note's title..."
           autoFocus
           onKeyDown={onKeyDown}
+          maxLength={100}
         />
         <Textarea
           name="content"
@@ -46,6 +47,7 @@ function NoteEditor({
           className="h-full"
           placeholder="Note's content..."
           onKeyDown={onKeyDown}
+          maxLength={3000}
         />
       </div>
     </div>
