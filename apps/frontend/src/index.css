@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  *:focus {
+    @apply outline-none;
+  }
+
+  *:focus-visible {
+    @apply ring-4;
+  }
+
   body {
     @apply bg-black text-white;
     -webkit-font-smoothing: antialiased;
