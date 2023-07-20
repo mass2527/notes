@@ -13,6 +13,7 @@ export default function NoteList() {
   if (notesQueryResult.data) {
     const fuse = new Fuse(notesQueryResult.data, {
       keys: ['title', 'content'],
+      threshold: 0.3,
     });
     const filteredNotes =
       query === ''
