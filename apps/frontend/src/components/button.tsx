@@ -1,38 +1,44 @@
 import { ButtonHTMLAttributes } from 'react';
+import { LoadingIcon } from './icons';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
   color?: 'white' | 'red';
+  isLoading?: boolean;
 }
 
 export function Button({
   type = 'button',
   variant = 'secondary',
   color = 'white',
+  disabled,
+  isLoading = false,
   children,
   ...props
 }: Props) {
-  const Component = 'button';
-
   return (
-    <Component
+    <button
+      disabled={disabled || isLoading}
+      aria-busy={isLoading}
       type={type}
-      className={`py-1 px-4 rounded-full ${
+      className={`flex justify-center items-center gap-2 px-3 h-10 rounded-md
+      ${
         {
           primary: {
-            white: 'bg-white text-black disabled:bg-neutral-500',
-            red: 'bg-red-500 text-white disabled:bg-neutral-500 disabled:text-black',
+            white: 'bg-white text-black disabled:text-neutral-300',
+            red: 'bg-red-500 text-white disabled:text-neutral-700',
           },
           secondary: {
-            white:
-              'text-white border border-white disabled:text-neutral-500 disabled:border-neutral-500',
-            red: 'text-red-500 border border-red-500 disabled:text-neutral-500 disabled:border-neutral-500',
+            white: 'text-white border border-white disabled:text-neutral-500',
+            red: 'text-red-500 border border-red-500 disabled:text-neutral-500',
           },
         }[variant][color]
-      }`}
+      }
+      `}
       {...props}
     >
+      {isLoading && <LoadingIcon />}
       {children}
-    </Component>
+    </button>
   );
 }
