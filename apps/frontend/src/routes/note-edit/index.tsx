@@ -43,11 +43,8 @@ function NoteEdit() {
                 onClick={() => {
                   handleNoteEdit();
                 }}
-                disabled={
-                  note.title === '' ||
-                  note.content === '' ||
-                  updateNoteMutationResult.isLoading
-                }
+                disabled={note.title === '' || note.content === ''}
+                isLoading={updateNoteMutationResult.isLoading}
               >
                 DONE
               </Button>
@@ -60,7 +57,7 @@ function NoteEdit() {
                     },
                   });
                 }}
-                disabled={deleteNoteMutationResult.isLoading}
+                isLoading={deleteNoteMutationResult.isLoading}
               >
                 DELETE
               </Button>

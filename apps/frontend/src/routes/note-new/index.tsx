@@ -36,14 +36,12 @@ function NoteNew() {
         header={
           <div className="flex justify-end">
             <Button
+              variant="primary"
               onClick={() => {
                 handleNoteCreate();
               }}
-              disabled={
-                note.title === '' ||
-                note.content === '' ||
-                createNoteMutationResult.isLoading
-              }
+              disabled={note.title === '' || note.content === ''}
+              isLoading={createNoteMutationResult.isLoading}
             >
               DONE
             </Button>
