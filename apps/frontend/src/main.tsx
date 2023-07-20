@@ -8,6 +8,7 @@ import NoteDetails from './routes/note-details/index.tsx';
 import NoteEdit from './routes/note-edit/index.tsx';
 import NoteNew from './routes/note-new/index.tsx';
 import './index.css';
+import ErrorPage from './error-page.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'notes/:noteId',
