@@ -7,6 +7,7 @@ import { Button } from '../../components/button';
 import Spacing from '../../components/spacing';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
+import { toast } from 'react-hot-toast';
 
 function NoteNew() {
   const [note, setNote] = useState<NoteForm>({
@@ -20,6 +21,9 @@ function NoteNew() {
     createNoteMutationResult.mutate(note, {
       onSuccess: (note) => {
         navigateWithQuery(`/notes/${note.id}`);
+      },
+      onError: () => {
+        toast.error('Failed to create new note');
       },
     });
   };
@@ -43,7 +47,7 @@ function NoteNew() {
               disabled={note.title === '' || note.content === ''}
               isLoading={createNoteMutationResult.isLoading}
             >
-              DONE
+              Create
             </Button>
           </div>
         }

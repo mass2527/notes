@@ -9,6 +9,7 @@ import Spacing from '../../components/spacing';
 import NoteEditor from '../../components/note-editor';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
+import { toast } from 'react-hot-toast';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -23,6 +24,20 @@ function NoteEdit() {
       updateNoteMutationResult.mutate(noteForm, {
         onSuccess: () => {
           navigateWithQuery(`/notes/${noteId}`);
+        },
+        onError: () => {
+          toast.error('Failed to edit note');
+        },
+      });
+    };
+
+    const handleNoteDelete = () => {
+      deleteNoteMutationResult.mutate(undefined, {
+        onSuccess: () => {
+          navigateWithQuery('/', { replace: true });
+        },
+        onError: () => {
+          toast.error('Failed to delete note');
         },
       });
     };
@@ -40,26 +55,18 @@ function NoteEdit() {
             <div className="flex justify-end gap-4">
               <Button
                 variant="primary"
-                onClick={() => {
-                  handleNoteEdit();
-                }}
+                onClick={handleNoteEdit}
                 disabled={noteForm.title === '' || noteForm.content === ''}
                 isLoading={updateNoteMutationResult.isLoading}
               >
-                DONE
+                Edit
               </Button>
               <Button
                 color="red"
-                onClick={() => {
-                  deleteNoteMutationResult.mutate(undefined, {
-                    onSuccess: () => {
-                      navigateWithQuery('/', { replace: true });
-                    },
-                  });
-                }}
+                onClick={handleNoteDelete}
                 isLoading={deleteNoteMutationResult.isLoading}
               >
-                DELETE
+                Delete
               </Button>
             </div>
           }

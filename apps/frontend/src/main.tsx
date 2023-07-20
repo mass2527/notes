@@ -9,6 +9,7 @@ import NoteEdit from './routes/note-edit/index.tsx';
 import NoteNew from './routes/note-new/index.tsx';
 import './index.css';
 import ErrorPage from './error-page.tsx';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster />
     </QueryClientProvider>
   </React.StrictMode>,
 );
