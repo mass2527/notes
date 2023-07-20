@@ -11,6 +11,5 @@ export const useNoteQuery = (noteId: number) => {
   return useQuery({
     queryKey: noteQueryKeys.detail(noteId),
     queryFn: () => fetchNote(noteId),
-    enabled: Boolean(noteId),
   });
 };

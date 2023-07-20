@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Input from '../../components/input';
 import { useSearchParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
-import { useKeyDown } from '../../hooks/use-key-down';
+import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 
 function QueryInput() {
@@ -20,7 +20,7 @@ function QueryInput() {
     }
   }, [notesFilteringQuery]);
 
-  useKeyDown((event) => {
+  useDocumentKeydownEventListener((event) => {
     const inputElement = inputRef.current;
     invariant(inputElement);
 

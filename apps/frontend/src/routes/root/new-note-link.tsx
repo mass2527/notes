@@ -1,11 +1,11 @@
 import LinkWithQuery from '../../components/link-with-query';
-import { useKeyDown } from '../../hooks/use-key-down';
+import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 
 function NewNoteLink() {
   const navigateWithQuery = useNavigateWithQuery();
 
-  useKeyDown((event) => {
+  useDocumentKeydownEventListener((event) => {
     if (event.key === 'n') {
       event.preventDefault();
       navigateWithQuery('/notes/new');
