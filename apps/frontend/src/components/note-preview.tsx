@@ -12,11 +12,13 @@ function NotePreview({
   className?: string;
 }) {
   return (
-    <div className={twMerge('flex flex-col gap-2', className)}>
+    <div className={twMerge('flex flex-col gap-2 h-full', className)}>
       {header}
-      <div className="flex flex-col gap-6 h-full">
-        <h2 className="text-5xl font-extrabold">{note.title}</h2>
-        <p className="h-full overflow-auto">{note.content}</p>
+      <div className="flex flex-col gap-6 overflow-auto">
+        <h2 className="flex-none text-5xl font-extrabold min-h-[1em] break-all">
+          {note.title}
+        </h2>
+        <p className="break-all whitespace-pre-wrap">{note.content}</p>
       </div>
     </div>
   );
