@@ -1,23 +1,19 @@
 import { useSearchParams } from 'react-router-dom';
-import { useNotesQuery } from './queries';
-import { useCurrentUser } from '../../hooks/use-current-user';
-import { getFormattedDate } from '../../utils/time';
 import Fuse from 'fuse.js';
-import LinkWithQuery from '../../components/link-with-query';
-
-const fuseOptions = {
-  keys: ['title', 'content'],
-};
+import NoteListItem from './note-list-item';
+import EmptyNoteListMessage from './empty-note-list-message';
+import { useCurrentUserNotesQuery } from './queries';
 
 export default function NoteList() {
-  const currentUser = useCurrentUser();
-  const notesQueryResult = useNotesQuery(currentUser.id);
+  const notesQueryResult = useCurrentUserNotesQuery();
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('q') ?? '';
 
   if (notesQueryResult.data) {
-    const fuse = new Fuse(notesQueryResult.data, fuseOptions);
+    const fuse = new Fuse(notesQueryResult.data, {
+      keys: ['title', 'content'],
+    });
     const filteredNotes =
       query === ''
         ? notesQueryResult.data
@@ -27,29 +23,10 @@ export default function NoteList() {
       <ul className="flex flex-col gap-4">
         {filteredNotes.length > 0 ? (
           filteredNotes.map((note) => (
-            <li key={note.id}>
-              <LinkWithQuery
-                to={`/notes/${note.id}`}
-                className="flex flex-col p-4 border border-neutral-700 rounded-lg"
-              >
-                <strong>{note.title}</strong>
-                <time
-                  dateTime={note.updatedAt}
-                  className="text-sm text-neutral-500"
-                >
-                  {getFormattedDate(new Date(note.updatedAt))}
-                </time>
-              </LinkWithQuery>
-            </li>
+            <NoteListItem key={note.id} note={note} />
           ))
         ) : (
-          <p>
-            <strong>
-              Click the <span className="underline">NEW</span> link
-            </strong>
-            <br />
-            to create your first note!
-          </p>
+          <EmptyNoteListMessage />
         )}
       </ul>
     );

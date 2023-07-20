@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { useNote } from './hooks';
+import { useNoteForm } from './hooks';
 import { useDeleteNote, useUpdateNote } from './mutations';
 import { Button } from '../../components/button';
 import NotePreview from '../../components/note-preview';
@@ -13,14 +13,14 @@ import { isWithPlatformMetaKey } from '../../utils/platform';
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
-  const { status, note, setNote } = useNote(Number(noteId));
+  const { status, noteForm, setNoteForm } = useNoteForm(Number(noteId));
   const updateNoteMutationResult = useUpdateNote(Number(noteId));
   const navigateWithQuery = useNavigateWithQuery();
   const deleteNoteMutationResult = useDeleteNote(Number(noteId));
 
   if (status === 'success') {
     const handleNoteEdit = () => {
-      updateNoteMutationResult.mutate(note, {
+      updateNoteMutationResult.mutate(noteForm, {
         onSuccess: () => {
           navigateWithQuery(`/notes/${noteId}`);
         },
@@ -32,7 +32,7 @@ function NoteEdit() {
         <NotePreview
           className="flex-1"
           header={<Spacing size={32} />}
-          note={note}
+          note={noteForm}
         />
         <NoteEditor
           className="flex-1"
@@ -43,7 +43,7 @@ function NoteEdit() {
                 onClick={() => {
                   handleNoteEdit();
                 }}
-                disabled={note.title === '' || note.content === ''}
+                disabled={noteForm.title === '' || noteForm.content === ''}
                 isLoading={updateNoteMutationResult.isLoading}
               >
                 DONE
@@ -63,8 +63,8 @@ function NoteEdit() {
               </Button>
             </div>
           }
-          note={note}
-          setNote={setNote}
+          note={noteForm}
+          setNote={setNoteForm}
           onKeyDown={(event) => {
             if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
               handleNoteEdit();
