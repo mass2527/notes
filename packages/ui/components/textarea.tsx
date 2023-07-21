@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
-function Textarea({ className, ...props }: Props) {
+export function Textarea({ className, ...props }: Props) {
   return (
     <textarea
       className={twMerge(
@@ -16,5 +16,3 @@ function Textarea({ className, ...props }: Props) {
     />
   );
 }
-
-export default Textarea;
