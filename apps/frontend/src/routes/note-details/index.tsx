@@ -4,6 +4,7 @@ import { useNoteQuery } from '../../hooks/use-note-query';
 import NotePreview from '../../components/note-preview';
 import { getFormattedFullDate } from '../../utils/time';
 import EditNoteLink from './edit-note-link';
+import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
@@ -33,7 +34,7 @@ function NoteDetails() {
     return <div>Error...</div>;
   }
 
-  return <div>Loading...</div>;
+  return <NotePreviewSkeleton />;
 }
 
 export default NoteDetails;
