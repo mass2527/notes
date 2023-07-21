@@ -1,4 +1,4 @@
-import LinkWithQuery from '../../components/link-with-query';
+import { LinkWithQuery } from 'ui';
 import { Note } from '../../types';
 import { getFormattedDate } from '../../utils/time';
 

@@ -1,4 +1,4 @@
-import LinkWithQuery from '../../components/link-with-query';
+import { LinkWithQuery } from 'ui';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 
