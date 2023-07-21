@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import Input from '../../components/input';
 import invariant from 'tiny-invariant';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import { useSyncSearchParams } from '../../hooks/use-sync-search-params';
+import { Input } from 'ui';
 
 function QueryInput() {
   const inputRef = useRef<HTMLInputElement>(null);

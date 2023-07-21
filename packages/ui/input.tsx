@@ -2,7 +2,7 @@ import { InputHTMLAttributes, forwardRef } from 'react';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
+export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
   return (
     <input
       ref={ref}
@@ -13,5 +13,3 @@ const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
     />
   );
 });
-
-export default Input;

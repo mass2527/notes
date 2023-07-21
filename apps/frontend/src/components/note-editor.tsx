@@ -1,8 +1,8 @@
 import { ChangeEvent, KeyboardEventHandler, ReactNode } from 'react';
 import { NoteForm } from '../types';
-import Input from './input';
 import Textarea from './textarea';
 import { twMerge } from 'tailwind-merge';
+import { Input } from 'ui';
 
 function NoteEditor(
   props: (
