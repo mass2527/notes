@@ -1,3 +1,3 @@
-export * from './button';
-export * from './icons';
-export * from './input';
+export * from './components/button';
+export * from './components/icons';
+export * from './components/input';
