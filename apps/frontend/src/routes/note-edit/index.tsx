@@ -10,7 +10,7 @@ import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { ReactNode } from 'react';
-import { Button, Spacing } from 'ui';
+import { Button, Spacing } from '@philly/react';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();

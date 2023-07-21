@@ -1,4 +1,4 @@
-import { Spacing } from 'ui';
+import { Spacing } from '@philly/react';
 import NewNoteLink from './new-note-link';
 import NoteList from './note-list';
 import QueryInput from './query-input';

@@ -7,7 +7,7 @@ import { useCreateNote } from './mutations';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
-import { Button, Spacing } from 'ui';
+import { Button, Spacing } from '@philly/react';
 
 function NoteNew() {
   const [note, setNote] = useState<NoteForm>({

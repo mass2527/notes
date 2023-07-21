@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { TextSkeleton } from 'ui';
+import { TextSkeleton } from '@philly/react';
 
 function NotePreviewSkeleton({ className }: { className?: string }) {
   return (

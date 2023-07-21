@@ -1,5 +1,5 @@
 import { useRouteError } from 'react-router-dom';
-import { Spacing, Link } from 'ui';
+import { Spacing, Link } from '@philly/react';
 
 export default function GlobalError() {
   const error = useRouteError();

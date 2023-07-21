@@ -1,4 +1,4 @@
-import { LinkWithQuery } from 'ui';
+import { LinkWithQuery } from '@philly/react';
 import { Note } from '../../types';
 import { getFormattedDate } from '../../utils/time';
 

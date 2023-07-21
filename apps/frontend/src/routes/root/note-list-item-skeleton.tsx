@@ -1,4 +1,4 @@
-import { TextSkeleton } from 'ui';
+import { TextSkeleton } from '@philly/react';
 
 function NoteListItemSkeleton() {
   return (
