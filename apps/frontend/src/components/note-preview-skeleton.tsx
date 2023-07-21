@@ -1,8 +1,9 @@
+import { twMerge } from 'tailwind-merge';
 import TextSkeleton from './text-skeleton';
 
-function NotePreviewSkeleton() {
+function NotePreviewSkeleton({ className }: { className?: string }) {
   return (
-    <div className="animate-pulse">
+    <div className={twMerge('animate-pulse', className)}>
       <div className="space-y-6">
         <div className="space-y-2">
           <TextSkeleton fontSize={14} lineHeight={32} />
