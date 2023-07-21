@@ -8,7 +8,7 @@ import NoteDetails from './routes/note-details/index.tsx';
 import NoteEdit from './routes/note-edit/index.tsx';
 import NoteNew from './routes/note-new/index.tsx';
 import './index.css';
-import ErrorPage from './error-page.tsx';
+import GlobalError from './routes/root/global-error.tsx';
 import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <GlobalError />,
     children: [
       {
         path: 'notes/:noteId',
