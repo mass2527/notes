@@ -1,20 +1,4 @@
-import { usePreservedCallback } from '@philly/react';
-import { useEffect } from 'react';
-
-const useDocumentEventListener = <T extends keyof DocumentEventMap>(
-  type: T,
-  listener: (event: DocumentEventMap[T]) => any,
-  options?: boolean | AddEventListenerOptions,
-) => {
-  const _listener = usePreservedCallback(listener);
-
-  useEffect(() => {
-    document.addEventListener(type, _listener, options);
-    return () => {
-      document.removeEventListener(type, _listener, options);
-    };
-  }, []);
-};
+import { useDocumentEventListener } from '@philly/react';
 
 export const useDocumentKeydownEventListener = (
   onKeyDown: (event: KeyboardEvent) => void,
