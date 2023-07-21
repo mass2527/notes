@@ -1,13 +1,6 @@
 import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-const platform =
-  window.navigator?.userAgentData?.platform ||
-  window.navigator?.platform ||
-  'unknown';
-
-const testPlatform = (regex: RegExp) => regex.test(platform);
-
-const isMac = () => testPlatform(/^mac/i);
+const isMac = () => /mac/i.test(navigator.userAgent);
 
 export const isWithPlatformMetaKey = (
   event:
