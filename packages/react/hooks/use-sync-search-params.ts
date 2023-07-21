@@ -10,5 +10,5 @@ export const useSyncSearchParams = (queries: Record<string, string>) => {
     } else {
       setSearchParams(queries);
     }
-  }, [queries]);
+  }, [queries, setSearchParams]);
 };

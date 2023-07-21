@@ -13,5 +13,5 @@ export const useDocumentEventListener = <T extends keyof DocumentEventMap>(
     return () => {
       document.removeEventListener(type, _listener, options);
     };
-  }, []);
+  }, [type, _listener, options]);
 };

@@ -22,8 +22,6 @@ export const useCreateNote = () => {
   return useMutation({
     mutationFn: ({ title, content }: NoteForm) =>
       createNote({ title, content, userId: currentUser.id }),
-    onSuccess: () => {
-      invalidateNoteQuery();
-    },
+    onSuccess: () => invalidateNoteQuery(),
   });
 };
