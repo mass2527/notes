@@ -3,6 +3,7 @@ import Fuse from 'fuse.js';
 import NoteListItem from './note-list-item';
 import EmptyNoteListMessage from './empty-note-list-message';
 import { useCurrentUserNotesQuery } from './queries';
+import NoteListItemSkeleton from './note-list-item-skeleton';
 
 export default function NoteList() {
   const notesQueryResult = useCurrentUserNotesQuery();
@@ -20,16 +21,14 @@ export default function NoteList() {
         ? notesQueryResult.data
         : fuse.search(query).map(({ item }) => item);
 
-    return (
+    return filteredNotes.length > 0 ? (
       <ul className="flex flex-col gap-4">
-        {filteredNotes.length > 0 ? (
-          filteredNotes.map((note) => (
-            <NoteListItem key={note.id} note={note} />
-          ))
-        ) : (
-          <EmptyNoteListMessage />
-        )}
+        {filteredNotes.map((note) => (
+          <NoteListItem key={note.id} note={note} />
+        ))}
       </ul>
+    ) : (
+      <EmptyNoteListMessage />
     );
   }
 
@@ -37,5 +36,11 @@ export default function NoteList() {
     return <div>Error...</div>;
   }
 
-  return <div>Loading...</div>;
+  return (
+    <ul className="flex flex-col gap-4">
+      <NoteListItemSkeleton />
+      <NoteListItemSkeleton />
+      <NoteListItemSkeleton />
+    </ul>
+  );
 }
