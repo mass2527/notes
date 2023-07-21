@@ -4,14 +4,13 @@ import invariant from 'tiny-invariant';
 import { useNoteForm } from './hooks';
 import { useDeleteNote, useUpdateNote } from './mutations';
 import NotePreview from '../../components/note-preview';
-import Spacing from '../../components/spacing';
 import NoteEditor from '../../components/note-editor';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { ReactNode } from 'react';
-import { Button } from 'ui';
+import { Button, Spacing } from 'ui';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();

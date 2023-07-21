@@ -1,4 +1,4 @@
-import Spacing from '../../components/spacing';
+import { Spacing } from 'ui';
 import NewNoteLink from './new-note-link';
 import NoteList from './note-list';
 import QueryInput from './query-input';
