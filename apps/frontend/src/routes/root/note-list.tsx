@@ -28,8 +28,8 @@ export default function NoteList() {
     if (filteredNotes.length === 0) {
       return (
         <div className="text-neutral-500 text-lg">
-          <span>No results for</span> "
-          <strong className="break-words text-white">{query}</strong>"
+          <span>No results for</span>{' '}
+          <q className="break-words text-white">{query}</q>
         </div>
       );
     }
