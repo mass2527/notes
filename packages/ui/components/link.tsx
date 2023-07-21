@@ -3,7 +3,7 @@ import { Link as LinkComponent } from 'react-router-dom';
 
 interface Props extends ComponentProps<typeof LinkComponent> {}
 
-function Link({ to, children, ...props }: Props) {
+export function Link({ to, children, ...props }: Props) {
   return (
     <LinkComponent
       to={to}
@@ -14,5 +14,3 @@ function Link({ to, children, ...props }: Props) {
     </LinkComponent>
   );
 }
-
-export default Link;

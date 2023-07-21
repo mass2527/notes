@@ -1,6 +1,5 @@
 import { useRouteError } from 'react-router-dom';
-import Link from '../../components/link';
-import { Spacing } from 'ui';
+import { Link, Spacing } from 'ui';
 
 export default function GlobalError() {
   const error = useRouteError();
