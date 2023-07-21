@@ -4,6 +4,9 @@
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint components & eslint hooks"
+  },
   "dependencies": {
     "react-router-dom": "^6.14.1"
   },
