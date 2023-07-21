@@ -2,8 +2,7 @@ import { useRef, useState } from 'react';
 import invariant from 'tiny-invariant';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { isWithPlatformMetaKey } from '../../utils/platform';
-import { useSyncSearchParams } from '../../hooks/use-sync-search-params';
-import { Input } from '@philly/react';
+import { Input, useSyncSearchParams } from '@philly/react';
 
 function QueryInput() {
   const inputRef = useRef<HTMLInputElement>(null);
