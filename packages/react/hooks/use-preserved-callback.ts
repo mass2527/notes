@@ -10,6 +10,7 @@ export const usePreservedCallback = <T extends Callback>(callback: T) => {
   }, [callback]);
 
   const preservedCallback = useCallback((...args: any[]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     callbackRef.current(...args);
   }, []);
 

@@ -20,9 +20,7 @@ export const useUpdateNote = (noteId: number) => {
   return useMutation({
     mutationFn: ({ title, content }: NoteForm) =>
       updateNote(noteId, { title, content }),
-    onSuccess: () => {
-      invalidateCurrentUserNoteListQuery();
-    },
+    onSuccess: () => invalidateCurrentUserNoteListQuery(),
   });
 };
 
@@ -36,8 +34,6 @@ export const useDeleteNote = (noteId: number) => {
 
   return useMutation({
     mutationFn: () => deleteNote(noteId),
-    onSuccess: () => {
-      invalidateCurrentUserNoteListQuery();
-    },
+    onSuccess: () => invalidateCurrentUserNoteListQuery(),
   });
 };
