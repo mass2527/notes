@@ -12,6 +12,10 @@ export default function NoteList() {
   const query = searchParams.get('q') ?? '';
 
   if (notesQueryResult.data) {
+    if (notesQueryResult.data.length === 0) {
+      return <EmptyNoteListMessage />;
+    }
+
     const fuse = new Fuse(notesQueryResult.data, {
       keys: ['title', 'content'],
       threshold: 0.3,
@@ -21,14 +25,21 @@ export default function NoteList() {
         ? notesQueryResult.data
         : fuse.search(query).map(({ item }) => item);
 
-    return filteredNotes.length > 0 ? (
+    if (filteredNotes.length === 0) {
+      return (
+        <div className="text-neutral-500 text-lg">
+          <span>No results for</span> "
+          <strong className="break-words text-white">{query}</strong>"
+        </div>
+      );
+    }
+
+    return (
       <ul className="flex flex-col gap-4">
         {filteredNotes.map((note) => (
           <NoteListItem key={note.id} note={note} />
         ))}
       </ul>
-    ) : (
-      <EmptyNoteListMessage />
     );
   }
 
