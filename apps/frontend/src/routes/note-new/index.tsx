@@ -3,7 +3,7 @@ import { NoteForm } from '../../types';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { useCreateNote } from './mutations';
-import { Button } from '../../components/button';
+import Button from '../../components/button';
 import Spacing from '../../components/spacing';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';

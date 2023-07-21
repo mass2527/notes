@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-export function Button({
+function Button({
   type = 'button',
   variant = 'secondary',
   color = 'white',
@@ -42,3 +42,5 @@ export function Button({
     </button>
   );
 }
+
+export default Button;
