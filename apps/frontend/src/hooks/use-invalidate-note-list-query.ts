@@ -4,11 +4,10 @@ import { noteQueryKeys } from '../queries';
 const useInvalidateQueries = (queryKey: QueryKey) => {
   const queryClient = useQueryClient();
 
-  return () => {
+  return () =>
     queryClient.invalidateQueries({
       queryKey,
     });
-  };
 };
 
 export const useInvalidateNoteListQuery = (userId: number) => {
