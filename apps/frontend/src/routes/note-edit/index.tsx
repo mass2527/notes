@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { useNoteForm } from './hooks';
+import { useNoteForm } from './use-note-form';
 import { useDeleteNote, useUpdateNote } from './mutations';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
