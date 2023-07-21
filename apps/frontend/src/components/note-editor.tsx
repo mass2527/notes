@@ -4,54 +4,55 @@ import Input from './input';
 import Textarea from './textarea';
 import { twMerge } from 'tailwind-merge';
 
-function NoteEditor({
-  className,
-  header,
-  note,
-  setNote,
-  onKeyDown,
-  disabled = false,
-}: {
-  className?: string;
-  header?: ReactNode;
-  note: NoteForm;
-  setNote: React.Dispatch<React.SetStateAction<NoteForm>>;
-  onKeyDown?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  disabled?: boolean;
-}) {
+function NoteEditor(
+  props: (
+    | {
+        note: NoteForm;
+        setNote: React.Dispatch<React.SetStateAction<NoteForm>>;
+        onKeyDown?: KeyboardEventHandler<
+          HTMLInputElement | HTMLTextAreaElement
+        >;
+        disabled: false;
+      }
+    | {
+        disabled: true;
+      }
+  ) & { className?: string; header?: ReactNode },
+) {
   const changeNoteFields = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setNote({
-      ...note,
-      [event.target.name]: event.target.value,
-    });
+    if (!props.disabled) {
+      props.setNote({
+        ...props.note,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   return (
-    <div className={twMerge('flex flex-col gap-4', className)}>
-      {header}
+    <div className={twMerge('flex flex-col gap-4', props.className)}>
+      {props.header}
       <div className="flex flex-col gap-4 h-full">
         <Input
-          type="text"
           name="title"
-          value={note.title}
+          value={props.disabled ? undefined : props.note.title}
           onChange={changeNoteFields}
           placeholder="Note's title..."
           autoFocus
-          onKeyDown={onKeyDown}
+          onKeyDown={props.disabled ? undefined : props.onKeyDown}
           maxLength={100}
-          disabled={disabled}
+          disabled={props.disabled}
         />
         <Textarea
           name="content"
-          value={note.content}
+          value={props.disabled ? undefined : props.note.content}
           onChange={changeNoteFields}
           className="h-full"
           placeholder="Note's content..."
-          onKeyDown={onKeyDown}
+          onKeyDown={props.disabled ? undefined : props.onKeyDown}
           maxLength={3000}
-          disabled={disabled}
+          disabled={props.disabled}
         />
       </div>
     </div>

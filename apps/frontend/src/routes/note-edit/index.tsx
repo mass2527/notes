@@ -10,6 +10,8 @@ import NoteEditor from '../../components/note-editor';
 import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
+import NotePreviewSkeleton from '../../components/note-preview-skeleton';
+import { ReactNode } from 'react';
 
 function NoteEdit() {
   const { noteId } = useParams<'noteId'>();
@@ -43,46 +45,50 @@ function NoteEdit() {
     };
 
     return (
-      <div className="flex gap-4 h-full">
-        <NotePreview
-          className="flex-1"
-          header={<Spacing size={32} />}
-          note={noteForm}
-        />
-        <NoteEditor
-          className="flex-1"
-          header={
-            <div className="flex justify-end gap-4">
-              <Button
-                variant="primary"
-                onClick={handleNoteEdit}
-                disabled={noteForm.title === '' || noteForm.content === ''}
-                isLoading={updateNoteMutationResult.isLoading}
-              >
-                Edit
-              </Button>
-              <Button
-                color="red"
-                onClick={handleNoteDelete}
-                isLoading={deleteNoteMutationResult.isLoading}
-              >
-                Delete
-              </Button>
-            </div>
-          }
-          note={noteForm}
-          setNote={setNoteForm}
-          onKeyDown={(event) => {
-            if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
-              handleNoteEdit();
+      <NoteEditLayout
+        preview={
+          <NotePreview
+            className="flex-1"
+            header={<Spacing size={32} />}
+            note={noteForm}
+          />
+        }
+        editor={
+          <NoteEditor
+            className="flex-1"
+            header={
+              <div className="flex justify-end gap-4">
+                <Button
+                  variant="primary"
+                  onClick={handleNoteEdit}
+                  disabled={noteForm.title === '' || noteForm.content === ''}
+                  isLoading={updateNoteMutationResult.isLoading}
+                >
+                  Edit
+                </Button>
+                <Button
+                  color="red"
+                  onClick={handleNoteDelete}
+                  isLoading={deleteNoteMutationResult.isLoading}
+                >
+                  Delete
+                </Button>
+              </div>
             }
-          }}
-          disabled={
-            updateNoteMutationResult.isLoading ||
-            deleteNoteMutationResult.isLoading
-          }
-        />
-      </div>
+            note={noteForm}
+            setNote={setNoteForm}
+            onKeyDown={(event) => {
+              if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
+                handleNoteEdit();
+              }
+            }}
+            disabled={
+              updateNoteMutationResult.isLoading ||
+              deleteNoteMutationResult.isLoading
+            }
+          />
+        }
+      />
     );
   }
 
@@ -90,7 +96,33 @@ function NoteEdit() {
     return <div>Error...</div>;
   }
 
-  return <div>Loading...</div>;
+  return (
+    <NoteEditLayout
+      preview={<NotePreviewSkeleton className="flex-1" />}
+      editor={
+        <NoteEditor
+          className="flex-1"
+          header={<Spacing size={40} />}
+          disabled
+        />
+      }
+    />
+  );
+}
+
+function NoteEditLayout({
+  preview,
+  editor,
+}: {
+  preview: ReactNode;
+  editor: ReactNode;
+}) {
+  return (
+    <div className="flex gap-4 h-full">
+      {preview}
+      {editor}
+    </div>
+  );
 }
 
 export default NoteEdit;
