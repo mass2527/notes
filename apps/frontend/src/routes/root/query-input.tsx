@@ -29,7 +29,6 @@ function QueryInput() {
   return (
     <Input
       ref={inputRef}
-      type="text"
       placeholder="Search notes"
       value={query.q}
       onChange={(event) => setQuery({ q: event.target.value })}
