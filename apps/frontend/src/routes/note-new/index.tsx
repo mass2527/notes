@@ -4,10 +4,9 @@ import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { useCreateNote } from './mutations';
 
-import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
-import { Button, Spacing } from '@philly/react';
+import { Button, Spacing, useNavigateWithQuery } from '@philly/react';
 
 function NoteNew() {
   const [note, setNote] = useState<NoteForm>({

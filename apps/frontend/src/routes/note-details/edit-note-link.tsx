@@ -1,6 +1,5 @@
-import { LinkWithQuery } from '@philly/react';
+import { LinkWithQuery, useNavigateWithQuery } from '@philly/react';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
-import { useNavigateWithQuery } from '../../hooks/use-navigate-with-query';
 
 function EditNoteLink({ noteId }: { noteId: number }) {
   const navigateWithQuery = useNavigateWithQuery();
