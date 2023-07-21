@@ -1,5 +1,5 @@
+import { usePreservedCallback } from '@philly/react';
 import { useEffect } from 'react';
-import { usePreservedCallback } from './use-preserved-callback';
 
 const useDocumentEventListener = <T extends keyof DocumentEventMap>(
   type: T,
