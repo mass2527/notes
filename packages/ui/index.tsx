@@ -3,3 +3,4 @@ export * from './components/icons';
 export * from './components/input';
 export * from './components/spacing';
 export * from './components/textarea';
+export * from './components/text-skeleton';

@@ -1,4 +1,4 @@
-function TextSkeleton({
+export function TextSkeleton({
   fontSize,
   lineHeight = fontSize * 1.5,
 }: {
@@ -11,5 +11,3 @@ function TextSkeleton({
     </div>
   );
 }
-
-export default TextSkeleton;

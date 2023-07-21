@@ -1,4 +1,4 @@
-import TextSkeleton from '../../components/text-skeleton';
+import { TextSkeleton } from 'ui';
 
 function NoteListItemSkeleton() {
   return (
