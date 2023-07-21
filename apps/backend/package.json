@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm index.ts"
+    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm index.ts",
+    "lint": "eslint index.ts"
   },
   "devDependencies": {
     "@types/http-status-codes": "^1.2.0",

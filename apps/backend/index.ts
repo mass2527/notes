@@ -13,10 +13,7 @@ await fastify.register(cors, {
 
 fastify.get(
   '/notes',
-  async (
-    request: FastifyRequest<{ Querystring: { userId?: string } }>,
-    reply,
-  ) => {
+  async (request: FastifyRequest<{ Querystring: { userId?: string } }>) => {
     const { userId } = request.query;
     const notes = await prisma.note.findMany({
       where: {
@@ -92,7 +89,6 @@ fastify.patch(
         content: string;
       };
     }>,
-    reply,
   ) => {
     const { noteId } = request.params;
     const { title, content } = request.body;
