@@ -11,7 +11,7 @@ function EditNoteLink({ noteId }: { noteId: number }) {
     }
   });
 
-  return <LinkWithQuery to={`/notes/${noteId}/edit`}>EDIT</LinkWithQuery>;
+  return <LinkWithQuery to={`/notes/${noteId}/edit`}>Edit</LinkWithQuery>;
 }
 
 export default EditNoteLink;
