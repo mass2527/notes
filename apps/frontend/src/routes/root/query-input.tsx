@@ -28,7 +28,7 @@ function QueryInput() {
   return (
     <Input
       ref={inputRef}
-      placeholder="Search notes"
+      placeholder="Search"
       value={query.q}
       onChange={(event) => setQuery({ q: event.target.value })}
       maxLength={64}

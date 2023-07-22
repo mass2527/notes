@@ -7,9 +7,10 @@ import { Link as NativeLink } from 'react-router-dom';
 function Sidebar() {
   return (
     <div className="flex flex-col p-4 border-r border-neutral-700 w-[300px]">
-      <h2 className="text-2xl font-medium">
-        <NativeLink to="/">Notes</NativeLink>
-      </h2>
+      <NativeLink className="text-2xl font-medium" to="/">
+        Notes
+      </NativeLink>
+
       <Spacing size={16} />
 
       <div className="flex justify-between items-center">

@@ -37,7 +37,7 @@ function NoteEditor(
           name="title"
           value={props.disabled ? undefined : props.note.title}
           onChange={changeNoteFields}
-          placeholder="Note's title..."
+          placeholder="Title"
           autoFocus
           onKeyDown={props.disabled ? undefined : props.onKeyDown}
           maxLength={100}
@@ -48,7 +48,7 @@ function NoteEditor(
           value={props.disabled ? undefined : props.note.content}
           onChange={changeNoteFields}
           className="h-full resize-none"
-          placeholder="Note's content..."
+          placeholder="Content"
           onKeyDown={props.disabled ? undefined : props.onKeyDown}
           maxLength={3000}
           disabled={props.disabled}
