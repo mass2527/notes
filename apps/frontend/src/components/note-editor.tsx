@@ -47,7 +47,7 @@ function NoteEditor(
           name="content"
           value={props.disabled ? undefined : props.note.content}
           onChange={changeNoteFields}
-          className="h-full"
+          className="h-full resize-none"
           placeholder="Note's content..."
           onKeyDown={props.disabled ? undefined : props.onKeyDown}
           maxLength={3000}
