@@ -11,7 +11,7 @@ function NewNoteLink() {
     }
   });
 
-  return <LinkWithQuery to="/notes/new">NEW</LinkWithQuery>;
+  return <LinkWithQuery to="/notes/new">New</LinkWithQuery>;
 }
 
 export default NewNoteLink;

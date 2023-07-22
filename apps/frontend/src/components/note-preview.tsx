@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { NoteForm } from '../types';
 import { twMerge } from 'tailwind-merge';
+import TextWithMarkdown from './text-with-markdown';
 
 function NotePreview({
   header,
@@ -18,7 +19,7 @@ function NotePreview({
         <h1 className="flex-none text-5xl font-extrabold min-h-[1em] break-all">
           {note.title}
         </h1>
-        <p className="break-all whitespace-pre-wrap">{note.content}</p>
+        <TextWithMarkdown text={note.content} />
       </div>
     </div>
   );
