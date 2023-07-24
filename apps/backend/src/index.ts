@@ -12,6 +12,10 @@ await fastify.register(cors, {
   origin: /^http:\/\/localhost:\d{4}$/,
 });
 
+fastify.get('/', () => {
+  return 'working';
+});
+
 fastify.get(
   '/notes',
   async (request: FastifyRequest<{ Querystring: { userId?: string } }>) => {
@@ -139,3 +143,5 @@ try {
   fastify.log.error(err);
   process.exit(1);
 }
+
+export default fastify;
