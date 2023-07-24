@@ -8,7 +8,7 @@ const fastify = Fastify({
   logger: false,
 });
 await fastify.register(cors, {
-  origin: /^http:\/\/localhost:\d{4}$/,
+  origin: '*',
 });
 
 fastify.get('/', () => {
