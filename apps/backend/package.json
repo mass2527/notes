@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
-    "lint": "eslint index.ts"
+    "lint": "eslint index.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/http-status-codes": "^1.2.0",
