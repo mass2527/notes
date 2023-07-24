@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
     "lint": "eslint src/index.ts",
-    "build": "prisma generate && tsc"
+    "postinstall": "prisma generate",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/http-status-codes": "^1.2.0",
