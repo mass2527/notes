@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import Fastify, { FastifyRequest } from 'fastify';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import cors from '@fastify/cors';
-import './env';
 
 const prisma = new PrismaClient();
 const fastify = Fastify({
