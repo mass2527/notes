@@ -11,9 +11,7 @@ module.exports = {
   parserOptions: {
     files: ['*.ts'],
   },
-  rules: [
-    {
-      '@typescript-eslint/no-namespace': 'off',
-    },
-  ],
+  rules: {
+    '@typescript-eslint/no-namespace': 'off',
+  },
 };
