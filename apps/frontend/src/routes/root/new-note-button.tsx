@@ -6,7 +6,7 @@ import invariant from 'tiny-invariant';
 
 function NewNoteButton() {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { state } = useNavigation();
+  const { state, formAction } = useNavigation();
 
   useDocumentKeydownEventListener((event) => {
     const buttonElement = buttonRef.current;
@@ -22,8 +22,7 @@ function NewNoteButton() {
       <Button
         ref={buttonRef}
         type="submit"
-        disabled={state === 'loading'}
-        isLoading={state === 'submitting'}
+        isLoading={state !== 'idle' && formAction === '/'}
       >
         New
       </Button>
