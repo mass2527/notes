@@ -1,5 +1,5 @@
 import { useRouteError } from 'react-router-dom';
-import { Spacing, Link } from '@philly/react';
+import { Spacing, LinkWithQuery } from '@philly/react';
 
 export default function GlobalError() {
   const error = useRouteError();
@@ -11,7 +11,7 @@ export default function GlobalError() {
         <h1 className="text-5xl">Oops!</h1>
         <Spacing size={24} />
         <p>Sorry, an unexpected error has occurred.</p>
-        <Link to="/">Return to home</Link>
+        <LinkWithQuery to="/">Return to home</LinkWithQuery>
       </div>
     </div>
   );
