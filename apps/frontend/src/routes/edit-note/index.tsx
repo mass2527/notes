@@ -21,7 +21,7 @@ function EditNote() {
         preview={
           <NotePreview
             className="flex-1"
-            header={<Spacing size={32} />}
+            header={<Spacing size={40} />}
             note={noteForm}
           />
         }

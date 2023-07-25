@@ -30,7 +30,7 @@ function NoteEditor(
   };
 
   return (
-    <div className={twMerge('flex flex-col gap-4', props.className)}>
+    <div className={twMerge('h-full flex flex-col gap-4', props.className)}>
       {props.header}
       <div className="flex flex-col gap-4 h-full">
         <Input
