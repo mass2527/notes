@@ -23,5 +23,6 @@ export const deleteNoteAction =
     } catch (error) {
       console.error(error);
       toast.error('Failed to delete note');
+      return redirect(`/notes/${noteId}`);
     }
   };

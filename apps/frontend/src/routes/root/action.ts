@@ -21,5 +21,6 @@ export const rootAction: ActionFunction = async () => {
   } catch (error) {
     console.error(error);
     toast.error('Failed to create new note');
+    return null;
   }
 };

@@ -27,10 +27,11 @@ export const editNoteAction =
     try {
       const updatedNote = await updateNote(noteId, noteForm);
       await queryClient.invalidateQueries(noteQueryKeys.list(1));
-      toast.success('Note Updated Successfully!');
+      toast.success('Note Saved Successfully!');
       return redirect(`/notes/${updatedNote.id}`);
     } catch (error) {
       console.error(error);
-      toast.error('Failed to edit note');
+      toast.error('Failed to save note');
+      return null;
     }
   };
