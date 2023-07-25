@@ -11,8 +11,8 @@ import './index.css';
 import GlobalError from './routes/root/global-error.tsx';
 import { Toaster } from 'react-hot-toast';
 import { rootLoader } from './routes/root/loader.ts';
-import { noteDetailsLoader } from './routes/note/loader.ts';
-import { noteEditLoader } from './routes/edit-note/loader.ts';
+import { noteLoader } from './routes/note/loader.ts';
+import { editNoteLoader } from './routes/edit-note/loader.ts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,12 +31,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'notes/:noteId',
-        loader: noteDetailsLoader(queryClient),
+        loader: noteLoader(queryClient),
         element: <Note />,
       },
       {
         path: 'notes/:noteId/edit',
-        loader: noteEditLoader(queryClient),
+        loader: editNoteLoader(queryClient),
         element: <EditNote />,
       },
       {

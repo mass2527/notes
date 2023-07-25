@@ -4,7 +4,7 @@ import { Note } from '../../types';
 import { LoaderFunctionArgs } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-export const noteEditLoader =
+export const editNoteLoader =
   (queryClient: QueryClient) =>
   async ({ params }: LoaderFunctionArgs) => {
     invariant(params.noteId);
