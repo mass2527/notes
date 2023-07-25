@@ -10,6 +10,7 @@ import NoteNew from './routes/note-new/index.tsx';
 import './index.css';
 import GlobalError from './routes/root/global-error.tsx';
 import { Toaster } from 'react-hot-toast';
+import { rootLoader } from './routes/root/loader.ts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    loader: rootLoader(queryClient),
     errorElement: <GlobalError />,
     children: [
       {
