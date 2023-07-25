@@ -8,7 +8,7 @@ import { isWithPlatformMetaKey } from '../../utils/platform';
 import { toast } from 'react-hot-toast';
 import { Button, Spacing, useNavigateWithQuery } from '@philly/react';
 
-function NoteNew() {
+function NewNote() {
   const [note, setNote] = useState<NoteForm>({
     title: '',
     content: '',
@@ -63,4 +63,4 @@ function NoteNew() {
   );
 }
 
-export default NoteNew;
+export default NewNote;

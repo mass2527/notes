@@ -4,15 +4,15 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/root/index.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import NoteDetails from './routes/note-details/index.tsx';
-import NoteEdit from './routes/note-edit/index.tsx';
-import NoteNew from './routes/note-new/index.tsx';
+import Note from './routes/note/index.tsx';
+import EditNote from './routes/edit-note/index.tsx';
+import NewNote from './routes/new-note/index.tsx';
 import './index.css';
 import GlobalError from './routes/root/global-error.tsx';
 import { Toaster } from 'react-hot-toast';
 import { rootLoader } from './routes/root/loader.ts';
-import { noteDetailsLoader } from './routes/note-details/loader.ts';
-import { noteEditLoader } from './routes/note-edit/loader.ts';
+import { noteDetailsLoader } from './routes/note/loader.ts';
+import { noteEditLoader } from './routes/edit-note/loader.ts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,16 +32,16 @@ const router = createBrowserRouter([
       {
         path: 'notes/:noteId',
         loader: noteDetailsLoader(queryClient),
-        element: <NoteDetails />,
+        element: <Note />,
       },
       {
         path: 'notes/:noteId/edit',
         loader: noteEditLoader(queryClient),
-        element: <NoteEdit />,
+        element: <EditNote />,
       },
       {
         path: 'notes/new',
-        element: <NoteNew />,
+        element: <NewNote />,
       },
     ],
   },

@@ -11,7 +11,7 @@ import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { ReactNode } from 'react';
 import { Button, Spacing, useNavigateWithQuery } from '@philly/react';
 
-function NoteEdit() {
+function EditNote() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const { status, noteForm, setNoteForm } = useNoteForm(Number(noteId));
@@ -123,4 +123,4 @@ function NoteEditLayout({
   );
 }
 
-export default NoteEdit;
+export default EditNote;

@@ -6,7 +6,7 @@ import EditNoteLink from './edit-note-link';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { useNote } from './useNote';
 
-function NoteDetails() {
+function Note() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const noteQueryResult = useNote(Number(noteId));
@@ -37,4 +37,4 @@ function NoteDetails() {
   return <NotePreviewSkeleton />;
 }
 
-export default NoteDetails;
+export default Note;
