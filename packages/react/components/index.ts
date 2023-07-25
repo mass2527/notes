@@ -6,3 +6,4 @@ export * from './textarea';
 export * from './text-skeleton';
 export * from './link';
 export * from './link-with-query';
+export * from './nav-link-with-query';
