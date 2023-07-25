@@ -7,16 +7,13 @@ const prisma = new PrismaClient();
 const fastify = Fastify({
   logger: false,
 });
-try {
-  await fastify.register(cors, {
-    origin: '*',
-  });
-} catch (error) {
-  console.error(error);
-}
 
-fastify.get('/', () => {
-  return 'working';
+await fastify.register(cors, {
+  origin: /^http:\/\/localhost:\d{4}$/,
+});
+
+fastify.get('/', (req, res) => {
+  return res.send('reply');
 });
 
 fastify.get(
