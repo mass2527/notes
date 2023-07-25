@@ -6,14 +6,18 @@ import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { isWithPlatformMetaKey } from '../../utils/platform';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 import { Button, Spacing } from '@philly/react';
 
 function EditNote() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const { status, noteForm, setNoteForm } = useNoteForm(Number(noteId));
-  const { state } = useNavigation();
+  const { state, formAction } = useNavigation();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const isSubmitting =
+    state === 'submitting' && /^\/notes\/\d+\/edit$/.test(formAction ?? '');
 
   if (status === 'success') {
     return (
@@ -30,7 +34,13 @@ function EditNote() {
             <NoteEditor
               header={
                 <div className="flex justify-end gap-4">
-                  <Button type="submit" variant="primary">
+                  <Button
+                    ref={buttonRef}
+                    type="submit"
+                    variant="primary"
+                    disabled={noteForm.title === '' || noteForm.content === ''}
+                    isLoading={isSubmitting}
+                  >
                     Save
                   </Button>
                 </div>
@@ -39,10 +49,13 @@ function EditNote() {
               setNote={setNoteForm}
               onKeyDown={(event) => {
                 if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
-                  // handleNoteEdit();
+                  const buttonElement = buttonRef.current;
+                  invariant(buttonElement);
+
+                  buttonRef.current.click();
                 }
               }}
-              disabled={state === 'submitting'}
+              disabled={isSubmitting}
             />
           </Form>
         }
