@@ -1,47 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { Form, useNavigation, useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNoteForm } from './use-note-form';
-import { useDeleteNote, useUpdateNote } from './mutations';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
 import { isWithPlatformMetaKey } from '../../utils/platform';
-import { toast } from 'react-hot-toast';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { ReactNode } from 'react';
-import { Button, Spacing, useNavigateWithQuery } from '@philly/react';
+import { Button, Spacing } from '@philly/react';
 
 function EditNote() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const { status, noteForm, setNoteForm } = useNoteForm(Number(noteId));
-  const updateNoteMutationResult = useUpdateNote(Number(noteId));
-  const navigateWithQuery = useNavigateWithQuery();
-  const deleteNoteMutationResult = useDeleteNote(Number(noteId));
+  const { state } = useNavigation();
 
   if (status === 'success') {
-    const handleNoteEdit = () => {
-      updateNoteMutationResult.mutate(noteForm, {
-        onSuccess: () => {
-          navigateWithQuery(`/notes/${noteId}`);
-        },
-        onError: () => {
-          toast.error('Failed to edit note');
-        },
-      });
-    };
-
-    const handleNoteDelete = () => {
-      deleteNoteMutationResult.mutate(undefined, {
-        onSuccess: () => {
-          navigateWithQuery('/', { replace: true });
-        },
-        onError: () => {
-          toast.error('Failed to delete note');
-        },
-      });
-    };
-
     return (
       <NoteEditLayout
         preview={
@@ -52,39 +26,25 @@ function EditNote() {
           />
         }
         editor={
-          <NoteEditor
-            className="flex-1"
-            header={
-              <div className="flex justify-end gap-4">
-                <Button
-                  variant="primary"
-                  onClick={handleNoteEdit}
-                  disabled={noteForm.title === '' || noteForm.content === ''}
-                  isLoading={updateNoteMutationResult.isLoading}
-                >
-                  Edit
-                </Button>
-                <Button
-                  color="red"
-                  onClick={handleNoteDelete}
-                  isLoading={deleteNoteMutationResult.isLoading}
-                >
-                  Delete
-                </Button>
-              </div>
-            }
-            note={noteForm}
-            setNote={setNoteForm}
-            onKeyDown={(event) => {
-              if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
-                handleNoteEdit();
+          <Form method="post" className="flex-1">
+            <NoteEditor
+              header={
+                <div className="flex justify-end gap-4">
+                  <Button type="submit" variant="primary">
+                    Save
+                  </Button>
+                </div>
               }
-            }}
-            disabled={
-              updateNoteMutationResult.isLoading ||
-              deleteNoteMutationResult.isLoading
-            }
-          />
+              note={noteForm}
+              setNote={setNoteForm}
+              onKeyDown={(event) => {
+                if (isWithPlatformMetaKey(event) && event.key === 'Enter') {
+                  // handleNoteEdit();
+                }
+              }}
+              disabled={state === 'submitting'}
+            />
+          </Form>
         }
       />
     );

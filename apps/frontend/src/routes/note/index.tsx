@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { Form, useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import NotePreview from '../../components/note-preview';
 import { getFormattedFullDate } from '../../utils/time';
 import EditNoteLink from './edit-note-link';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { useNote } from './useNote';
+import { Button } from '@philly/react';
 
 function Note() {
   const { noteId } = useParams<'noteId'>();
@@ -22,7 +23,14 @@ function Note() {
             >
               {getFormattedFullDate(new Date(noteQueryResult.data.updatedAt))}
             </time>
-            <EditNoteLink noteId={Number(noteId)} />
+            <div className="flex items-center gap-4">
+              <EditNoteLink noteId={Number(noteId)} />
+              <Form method="delete" action="delete">
+                <Button type="submit" color="red">
+                  Delete
+                </Button>
+              </Form>
+            </div>
           </div>
         }
         note={noteQueryResult.data}

@@ -13,6 +13,8 @@ import { rootLoader } from './routes/root/loader.ts';
 import { noteLoader } from './routes/note/loader.ts';
 import { editNoteLoader } from './routes/edit-note/loader.ts';
 import { rootAction } from './routes/root/action.ts';
+import { editNoteAction } from './routes/edit-note/action.ts';
+import { deleteNoteAction } from './routes/delete-note/action.ts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,7 +40,12 @@ const router = createBrowserRouter([
       {
         path: 'notes/:noteId/edit',
         loader: editNoteLoader(queryClient),
+        action: editNoteAction(queryClient),
         element: <EditNote />,
+      },
+      {
+        path: 'notes/:noteId/delete',
+        action: deleteNoteAction(queryClient),
       },
     ],
   },
