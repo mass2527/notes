@@ -18,11 +18,18 @@ fastify.get('/', (req, res) => {
 
 fastify.get(
   '/notes',
-  async (request: FastifyRequest<{ Querystring: { userId?: string } }>) => {
+  async (
+    request: FastifyRequest<{
+      Querystring: { userId?: string };
+    }>,
+  ) => {
     const { userId } = request.query;
     const notes = await prisma.note.findMany({
       where: {
         userId: userId ? Number(userId) : undefined,
+      },
+      orderBy: {
+        updatedAt: 'desc',
       },
     });
 
