@@ -17,8 +17,8 @@ export const deleteNoteAction =
 
     try {
       await deleteNote(noteId);
-      toast.success('Note Deleted Successfully!');
       await queryClient.invalidateQueries(noteQueryKeys.list(1));
+      toast.success('Note Deleted Successfully!');
       return redirect('/');
     } catch (error) {
       console.error(error);

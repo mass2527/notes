@@ -26,8 +26,10 @@ export const editNoteAction =
 
     try {
       const updatedNote = await updateNote(noteId, noteForm);
-      await queryClient.invalidateQueries(noteQueryKeys.list(1));
-      await queryClient.invalidateQueries(noteQueryKeys.detail(noteId));
+      await Promise.all([
+        queryClient.invalidateQueries(noteQueryKeys.list(1)),
+        queryClient.invalidateQueries(noteQueryKeys.detail(noteId)),
+      ]);
       toast.success('Note Saved Successfully!');
       return redirect(`/notes/${updatedNote.id}`);
     } catch (error) {
