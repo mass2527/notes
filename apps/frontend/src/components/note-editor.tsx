@@ -35,7 +35,7 @@ function NoteEditor(
       <div className="flex flex-col gap-4 h-full">
         <Input
           name="title"
-          value={props.disabled ? undefined : props.note.title}
+          value={props.disabled ? '' : props.note.title}
           onChange={changeNoteFields}
           placeholder="Title"
           autoFocus
@@ -45,7 +45,7 @@ function NoteEditor(
         />
         <Textarea
           name="content"
-          value={props.disabled ? undefined : props.note.content}
+          value={props.disabled ? '' : props.note.content}
           onChange={changeNoteFields}
           className="h-full resize-none"
           placeholder="Content"
