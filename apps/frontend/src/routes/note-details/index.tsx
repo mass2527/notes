@@ -1,15 +1,15 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
-import { useNoteQuery } from '../../hooks/use-note-query';
 import NotePreview from '../../components/note-preview';
 import { getFormattedFullDate } from '../../utils/time';
 import EditNoteLink from './edit-note-link';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
+import { useNote } from './useNote';
 
 function NoteDetails() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
-  const noteQueryResult = useNoteQuery(Number(noteId));
+  const noteQueryResult = useNote(Number(noteId));
 
   if (noteQueryResult.data) {
     return (
