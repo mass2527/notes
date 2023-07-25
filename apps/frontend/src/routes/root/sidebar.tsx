@@ -1,5 +1,5 @@
 import { Spacing } from '@philly/react';
-import NewNoteLink from './new-note-link';
+import NewNoteButton from './new-note-button';
 import NoteList from './note-list';
 import QueryInput from './query-input';
 import { Link as NativeLink } from 'react-router-dom';
@@ -13,9 +13,9 @@ function Sidebar() {
 
       <Spacing size={16} />
 
-      <div className="flex justify-between items-center">
+      <div className="flex items-center gap-2">
         <QueryInput />
-        <NewNoteLink />
+        <NewNoteButton />
       </div>
       <Spacing size={16} />
 
