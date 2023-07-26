@@ -1,16 +1,16 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import invariant from 'tiny-invariant';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
 import { isWithPlatformMetaKey } from '../../utils/platform';
-import { Input, useSyncSearchParams } from '@philly/react';
+import { Input } from '@philly/react';
+import { Form, useLoaderData, useSubmit } from 'react-router-dom';
+import { UnwrapLoader } from '../../utils/types';
+import { rootLoader } from './loader';
 
 function QueryInput() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState({
-    q: '',
-  });
-
-  useSyncSearchParams(query);
+  const { q } = useLoaderData() as UnwrapLoader<typeof rootLoader>;
+  const submit = useSubmit();
 
   useDocumentKeydownEventListener((event) => {
     const inputElement = inputRef.current;
@@ -26,13 +26,20 @@ function QueryInput() {
   });
 
   return (
-    <Input
-      ref={inputRef}
-      placeholder="Search"
-      value={query.q}
-      onChange={(event) => setQuery({ q: event.target.value })}
-      maxLength={64}
-    />
+    <Form role="search">
+      <Input
+        type="search"
+        name="q"
+        ref={inputRef}
+        aria-label="Search notes"
+        placeholder="Search"
+        maxLength={64}
+        defaultValue={q}
+        onChange={(event) => {
+          submit(event.currentTarget.form);
+        }}
+      />
+    </Form>
   );
 }
 

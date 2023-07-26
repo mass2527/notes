@@ -28,7 +28,7 @@ const useNotesQuery = (
 
 export const useCurrentUserNotesQuery = () => {
   const currentUser = useCurrentUser();
-  const initialData = useLoaderData() as UnwrapLoader<typeof rootLoader>;
+  const { notes } = useLoaderData() as UnwrapLoader<typeof rootLoader>;
 
-  return useNotesQuery(currentUser.id, { initialData });
+  return useNotesQuery(currentUser.id, { initialData: notes });
 };
