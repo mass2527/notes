@@ -19,7 +19,9 @@ function NotePreview({
     const divElement = divRef.current;
     invariant(divElement);
 
-    divElement.scrollTop = divElement.scrollHeight;
+    if (divElement.scrollTop !== 0) {
+      divElement.scrollTop = divElement.scrollHeight;
+    }
   }, [note.content]);
 
   return (
