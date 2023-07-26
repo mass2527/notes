@@ -15,6 +15,7 @@ import { editNoteLoader } from './routes/edit-note/loader.ts';
 import { rootAction } from './routes/root/action.ts';
 import { editNoteAction } from './routes/edit-note/action.ts';
 import { deleteNoteAction } from './routes/delete-note/action.ts';
+import Index from './routes/index.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <GlobalError />,
     children: [
+      {
+        index: true,
+        element: <Index />,
+      },
       {
         path: 'notes/:noteId',
         loader: noteLoader(queryClient),
