@@ -2,7 +2,7 @@ import { ComponentProps, useCallback } from 'react';
 import { Navigation, useLocation, useNavigation, Form } from 'react-router-dom';
 
 export const useNavigationFetcher = ({
-  action: _action,
+  action = '',
   method = 'get',
   preserveSearchParams = true,
 }: {
@@ -13,19 +13,23 @@ export const useNavigationFetcher = ({
   const { pathname, search } = useLocation();
   const { state, formAction = '', formMethod = 'get' } = useNavigation();
 
-  const action = preserveSearchParams ? `${_action}${search}` : _action;
-
   const isMatched =
     formMethod.toLowerCase() === method.toLowerCase() &&
-    formAction.startsWith(`${pathname}/${action}`);
+    formAction.startsWith(`${pathname}${action === '' ? '' : `/${action}`}`);
 
   return {
     isSubmitting: isMatched && state === 'submitting',
     Form: useCallback(
       (props: Omit<ComponentProps<typeof Form>, 'method' | 'action'>) => {
-        return <Form method={method} action={action} {...props} />;
+        return (
+          <Form
+            method={method}
+            action={preserveSearchParams ? action + search : action}
+            {...props}
+          />
+        );
       },
-      [action, method],
+      [preserveSearchParams, action, search, method],
     ),
   };
 };
