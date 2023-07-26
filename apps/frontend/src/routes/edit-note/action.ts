@@ -1,10 +1,11 @@
-import { ActionFunction, redirect } from 'react-router-dom';
+import { ActionFunction } from 'react-router-dom';
 import { Note, NoteForm } from '../../types';
 import { http } from '../../http';
 import invariant from 'tiny-invariant';
 import { toast } from 'react-hot-toast';
 import { QueryClient } from '@tanstack/react-query';
 import { noteQueryKeys } from '../../queries';
+import { redirectWithQuery } from '../../utils/router';
 
 const updateNote = (
   noteId: number,
@@ -31,7 +32,7 @@ export const editNoteAction =
         queryClient.invalidateQueries(noteQueryKeys.detail(noteId)),
       ]);
       toast.success('Note Saved Successfully!');
-      return redirect(`/notes/${updatedNote.id}`);
+      return redirectWithQuery(`/notes/${updatedNote.id}`, { request });
     } catch (error) {
       console.error(error);
       toast.error('Failed to save note');
