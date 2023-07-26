@@ -1,7 +1,7 @@
 import { LinkWithQuery, Spacing } from '@philly/react';
 import NewNoteButton from './new-note-button';
 import NoteList from './note-list';
-import QueryInput from './query-input';
+import NotesQueryInput from './notes-query-input';
 
 function Sidebar() {
   return (
@@ -13,7 +13,7 @@ function Sidebar() {
       <Spacing size={16} />
 
       <div className="flex items-center gap-2">
-        <QueryInput />
+        <NotesQueryInput />
         <NewNoteButton />
       </div>
       <Spacing size={16} />

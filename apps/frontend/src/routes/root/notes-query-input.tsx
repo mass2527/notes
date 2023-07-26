@@ -7,7 +7,7 @@ import { Form, useLoaderData, useSubmit } from 'react-router-dom';
 import { UnwrapLoader } from '../../utils/types';
 import { rootLoader } from './loader';
 
-function QueryInput() {
+function NotesQueryInput() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { q } = useLoaderData() as UnwrapLoader<typeof rootLoader>;
   const submit = useSubmit();
@@ -43,4 +43,4 @@ function QueryInput() {
   );
 }
 
-export default QueryInput;
+export default NotesQueryInput;
