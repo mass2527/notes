@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           id={id}
           type={type}
           ref={ref}
-          className={`placeholder:text-neutral-500 bg-transparent ring-0`}
+          className={`placeholder:text-neutral-500 bg-transparent ring-0 w-full`}
           autoComplete="off"
           {...props}
         />
