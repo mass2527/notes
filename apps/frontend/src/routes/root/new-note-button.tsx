@@ -1,12 +1,13 @@
-import { Button } from '@philly/react';
+import { Button, useNavigationFetcher } from '@philly/react';
 import { useDocumentKeydownEventListener } from '../../hooks/use-document-key-down-event-listener';
-import { Form, useNavigation } from 'react-router-dom';
 import { useRef } from 'react';
 import invariant from 'tiny-invariant';
 
 function NewNoteButton() {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { state, formAction } = useNavigation();
+  const fetcher = useNavigationFetcher({
+    method: 'post',
+  });
 
   useDocumentKeydownEventListener((event) => {
     const buttonElement = buttonRef.current;
@@ -18,15 +19,15 @@ function NewNoteButton() {
   });
 
   return (
-    <Form method="post">
+    <fetcher.Form>
       <Button
         ref={buttonRef}
         type="submit"
-        isLoading={state !== 'idle' && formAction === '/'}
+        isLoading={fetcher.state !== 'idle'}
       >
         New
       </Button>
-    </Form>
+    </fetcher.Form>
   );
 }
 

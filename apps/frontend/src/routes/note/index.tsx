@@ -1,17 +1,16 @@
-import { Form, useNavigation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import NotePreview from '../../components/note-preview';
 import { getFormattedFullDate } from '../../utils/time';
 import EditNoteLink from './edit-note-link';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { useNote } from './useNote';
-import { Button } from '@philly/react';
+import NoteDeleteButton from './note-delete-button';
 
 function Note() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const noteQueryResult = useNote(Number(noteId));
-  const { state, formAction } = useNavigation();
 
   if (noteQueryResult.data) {
     return (
@@ -26,18 +25,7 @@ function Note() {
             </time>
             <div className="flex items-center gap-4">
               <EditNoteLink noteId={Number(noteId)} />
-              <Form method="delete" action="delete">
-                <Button
-                  type="submit"
-                  color="red"
-                  isLoading={
-                    state === 'submitting' &&
-                    /^\/notes\/\d+\/delete$/.test(formAction)
-                  }
-                >
-                  Delete
-                </Button>
-              </Form>
+              <NoteDeleteButton />
             </div>
           </div>
         }

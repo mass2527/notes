@@ -1,23 +1,23 @@
-import { Form, useNavigation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNoteForm } from './use-note-form';
 import NotePreview from '../../components/note-preview';
 import NoteEditor from '../../components/note-editor';
-import { isWithPlatformMetaKey } from '../../utils/platform';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
 import { ReactNode, useRef } from 'react';
-import { Button, Spacing } from '@philly/react';
+import { Button, Spacing, useNavigationFetcher } from '@philly/react';
+import { isWithPlatformMetaKey } from '../../utils/platform';
 
 function EditNote() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
   const { status, noteForm, setNoteForm } = useNoteForm(Number(noteId));
-  const { state, formAction } = useNavigation();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const isSubmitting =
-    state === 'submitting' && /^\/notes\/\d+\/edit$/.test(formAction ?? '');
+  const fetcher = useNavigationFetcher({
+    method: 'post',
+  });
 
   if (status === 'success') {
     return (
@@ -30,7 +30,7 @@ function EditNote() {
           />
         }
         editor={
-          <Form method="post" className="flex-1">
+          <fetcher.Form className="flex-1">
             <NoteEditor
               header={
                 <div className="flex justify-end gap-4">
@@ -39,7 +39,7 @@ function EditNote() {
                     type="submit"
                     variant="primary"
                     disabled={noteForm.title === '' || noteForm.content === ''}
-                    isLoading={isSubmitting}
+                    isLoading={fetcher.state === 'submitting'}
                   >
                     Save
                   </Button>
@@ -55,9 +55,9 @@ function EditNote() {
                   buttonRef.current.click();
                 }
               }}
-              disabled={isSubmitting}
+              disabled={fetcher.state === 'submitting'}
             />
-          </Form>
+          </fetcher.Form>
         }
       />
     );

@@ -11,6 +11,7 @@ export const useNavigationFetcher = ({
   preserveSearchParams?: boolean;
 }) => {
   const { pathname, search } = useLocation();
+
   const { state, formAction = '', formMethod = 'get' } = useNavigation();
 
   const isMatched =
@@ -18,7 +19,7 @@ export const useNavigationFetcher = ({
     formAction.startsWith(`${pathname}${action === '' ? '' : `/${action}`}`);
 
   return {
-    isSubmitting: isMatched && state === 'submitting',
+    state: isMatched ? state : 'idle',
     Form: useCallback(
       (props: Omit<ComponentProps<typeof Form>, 'method' | 'action'>) => {
         return (
