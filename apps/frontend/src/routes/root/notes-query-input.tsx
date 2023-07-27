@@ -34,7 +34,7 @@ function NotesQueryInput() {
   });
 
   return (
-    <Form role="search" action={location.pathname}>
+    <Form role="search">
       <Input
         type="search"
         name="q"
@@ -47,6 +47,7 @@ function NotesQueryInput() {
           const isFirstSearch = q === '';
           submit(event.currentTarget.form, {
             replace: !isFirstSearch,
+            action: location.pathname,
           });
         }}
       />

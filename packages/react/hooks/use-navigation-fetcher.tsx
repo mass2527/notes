@@ -1,36 +1,37 @@
 import { ComponentProps, useCallback } from 'react';
-import { Navigation, useLocation, useNavigation, Form } from 'react-router-dom';
+import {
+  Navigation,
+  useLocation,
+  useNavigation,
+  Form,
+  useFormAction,
+} from 'react-router-dom';
 
 export const useNavigationFetcher = ({
   action = '',
   method = 'get',
-  preserveSearchParams = true,
 }: {
   action?: Navigation['formAction'];
   method?: Navigation['formMethod'];
-  preserveSearchParams?: boolean;
 }) => {
-  const { pathname, search } = useLocation();
-
+  const { search } = useLocation();
   const { state, formAction = '', formMethod = 'get' } = useNavigation();
 
-  const isMatched =
-    formMethod.toLowerCase() === method.toLowerCase() &&
-    formAction.startsWith(`${pathname}${action === '' ? '' : `/${action}`}`);
+  const isMethodMatched = formMethod.toLowerCase() === method.toLowerCase();
+
+  const formActionWithoutQuery = formAction.split('?')[0];
+  const resolvedAction = useFormAction(action);
+  const isActionMatched = formActionWithoutQuery === resolvedAction;
+
+  const isMatched = isMethodMatched && isActionMatched;
 
   return {
     state: isMatched ? state : 'idle',
     Form: useCallback(
       (props: Omit<ComponentProps<typeof Form>, 'method' | 'action'>) => {
-        return (
-          <Form
-            method={method}
-            action={preserveSearchParams ? action + search : action}
-            {...props}
-          />
-        );
+        return <Form method={method} action={action + search} {...props} />;
       },
-      [preserveSearchParams, action, search, method],
+      [action, search, method],
     ),
   };
 };

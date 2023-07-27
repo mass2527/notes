@@ -7,6 +7,7 @@ function NewNoteButton() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const fetcher = useNavigationFetcher({
     method: 'post',
+    action: '/',
   });
 
   useDocumentKeydownEventListener((event) => {
