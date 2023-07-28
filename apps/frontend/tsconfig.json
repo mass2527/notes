@@ -1,4 +1,7 @@
 {
   "extends": "tsconfig/react.json",
+  "compilerOptions": {
+    "jsx": "preserve"
+  },
   "include": ["src"]
 }
