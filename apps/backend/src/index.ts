@@ -12,7 +12,7 @@ await fastify.register(cors, {
   origin:
     process.env.NODE_ENV === 'development'
       ? /^http:\/\/localhost:\d{4}$/
-      : 'https://notes-backend-pi.vercel.app',
+      : 'https://notes-frontend-alpha-taupe.vercel.app',
 });
 
 fastify.get('/', (req, res) => {
