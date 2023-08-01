@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { LoadingIcon } from './icons';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,21 +7,26 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-export function Button({
-  type = 'button',
-  variant = 'secondary',
-  color = 'white',
-  disabled,
-  isLoading = false,
-  children,
-  ...props
-}: Props) {
-  return (
-    <button
-      disabled={disabled || isLoading}
-      aria-busy={isLoading}
-      type={type}
-      className={`flex justify-center items-center gap-2 px-3 h-10 rounded-md
+export const Button = forwardRef<HTMLButtonElement, Props>(
+  (
+    {
+      type = 'button',
+      variant = 'secondary',
+      color = 'white',
+      disabled,
+      isLoading = false,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        disabled={disabled || isLoading}
+        aria-busy={isLoading}
+        type={type}
+        className={`flex justify-center items-center gap-2 px-3 h-10 rounded-md
       ${
         {
           primary: {
@@ -35,10 +40,11 @@ export function Button({
         }[variant][color]
       }
       `}
-      {...props}
-    >
-      {isLoading && <LoadingIcon />}
-      {children}
-    </button>
-  );
-}
+        {...props}
+      >
+        {isLoading && <LoadingIcon />}
+        {children}
+      </button>
+    );
+  },
+);

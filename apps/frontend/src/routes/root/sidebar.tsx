@@ -1,21 +1,22 @@
-import { Spacing } from '@philly/react';
-import NewNoteLink from './new-note-link';
+import { LinkWithQuery, Spacing } from '@philly/react';
+import NewNoteButton from './new-note-button';
 import NoteList from './note-list';
-import QueryInput from './query-input';
-import { Link as NativeLink } from 'react-router-dom';
+import NotesQueryInput from './notes-query-input';
 
 function Sidebar() {
   return (
-    <div className="flex flex-col p-4 border-r border-neutral-700 w-[300px]">
-      <NativeLink className="text-2xl font-medium" to="/">
-        Notes
-      </NativeLink>
+    <div className="flex flex-col p-4 border-r border-neutral-700 w-[250px]">
+      <div className="flex justify-between">
+        <LinkWithQuery className="text-2xl font-medium" to="/">
+          Notes
+        </LinkWithQuery>
+        <NewNoteButton />
+      </div>
 
       <Spacing size={16} />
 
-      <div className="flex justify-between items-center">
-        <QueryInput />
-        <NewNoteLink />
+      <div className="flex items-center gap-2">
+        <NotesQueryInput />
       </div>
       <Spacing size={16} />
 

@@ -1,15 +1,16 @@
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
-import { useNoteQuery } from '../../hooks/use-note-query';
 import NotePreview from '../../components/note-preview';
 import { getFormattedFullDate } from '../../utils/time';
 import EditNoteLink from './edit-note-link';
 import NotePreviewSkeleton from '../../components/note-preview-skeleton';
+import { useNote } from './useNote';
+import NoteDeleteButton from './note-delete-button';
 
-function NoteDetails() {
+function Note() {
   const { noteId } = useParams<'noteId'>();
   invariant(noteId);
-  const noteQueryResult = useNoteQuery(Number(noteId));
+  const noteQueryResult = useNote(Number(noteId));
 
   if (noteQueryResult.data) {
     return (
@@ -22,7 +23,10 @@ function NoteDetails() {
             >
               {getFormattedFullDate(new Date(noteQueryResult.data.updatedAt))}
             </time>
-            <EditNoteLink noteId={Number(noteId)} />
+            <div className="flex items-center gap-4">
+              <EditNoteLink noteId={Number(noteId)} />
+              <NoteDeleteButton />
+            </div>
           </div>
         }
         note={noteQueryResult.data}
@@ -37,4 +41,4 @@ function NoteDetails() {
   return <NotePreviewSkeleton />;
 }
 
-export default NoteDetails;
+export default Note;

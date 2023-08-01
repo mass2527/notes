@@ -7,25 +7,32 @@ const prisma = new PrismaClient();
 const fastify = Fastify({
   logger: false,
 });
-try {
-  await fastify.register(cors, {
-    origin: '*',
-  });
-} catch (error) {
-  console.error(error);
-}
 
-fastify.get('/', () => {
-  return 'working';
+await fastify.register(cors, {
+  origin:
+    process.env.NODE_ENV === 'development'
+      ? /^http:\/\/localhost:\d{4}$/
+      : 'https://notes-frontend-alpha-taupe.vercel.app/',
+});
+
+fastify.get('/', (req, res) => {
+  return res.send('reply');
 });
 
 fastify.get(
   '/notes',
-  async (request: FastifyRequest<{ Querystring: { userId?: string } }>) => {
+  async (
+    request: FastifyRequest<{
+      Querystring: { userId?: string };
+    }>,
+  ) => {
     const { userId } = request.query;
     const notes = await prisma.note.findMany({
       where: {
         userId: userId ? Number(userId) : undefined,
+      },
+      orderBy: {
+        updatedAt: 'desc',
       },
     });
 
